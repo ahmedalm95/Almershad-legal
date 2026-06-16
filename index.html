@@ -1,0 +1,2990 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عقارات علي سعد المرشاد - الإدارة القانونية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    /* Light mode (default) */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f7f8fa;
+    --bg-tertiary: #f0f2f5;
+    --bg-elevated: #ffffff;
+    --bg-hover: #f0f2f5;
+    
+    --border: #e4e7eb;
+    --border-strong: #cbd2d9;
+    --border-subtle: #eef0f3;
+    
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --text-disabled: #a0aec0;
+    
+    --accent: #1a365d;
+    --accent-light: #2c5282;
+    --accent-bg: #ebf4ff;
+    
+    --success: #22543d;
+    --success-bg: #c6f6d5;
+    --success-light: #38a169;
+    
+    --warning: #744210;
+    --warning-bg: #fefcbf;
+    --warning-light: #d69e2e;
+    
+    --danger: #742a2a;
+    --danger-bg: #fed7d7;
+    --danger-light: #c53030;
+    
+    --info: #2a4365;
+    --info-bg: #bee3f8;
+    
+    --gold: #744210;
+    --gold-bg: #faf089;
+    
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* Dark mode (auto at night) */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-primary: #0f1419;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #1c2128;
+      --bg-elevated: #1c2128;
+      --bg-hover: #22272e;
+      
+      --border: #30363d;
+      --border-strong: #444c56;
+      --border-subtle: #21262d;
+      
+      --text-primary: #e6edf3;
+      --text-secondary: #b1bac4;
+      --text-muted: #768390;
+      --text-disabled: #545d68;
+      
+      --accent: #58a6ff;
+      --accent-light: #79c0ff;
+      --accent-bg: #0d2545;
+      
+      --success: #56d364;
+      --success-bg: #033a16;
+      --success-light: #46a957;
+      
+      --warning: #d29922;
+      --warning-bg: #4d2d00;
+      --warning-light: #bb8009;
+      
+      --danger: #f85149;
+      --danger-bg: #3c0d0d;
+      --danger-light: #da3633;
+      
+      --info: #58a6ff;
+      --info-bg: #0d2545;
+      
+      --gold: #d29922;
+      --gold-bg: #4d2d00;
+    }
+  }
+  
+  html { font-size: 14px; }
+  
+  body {
+    font-family: 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  
+  /* ============ LOGIN SCREEN ============ */
+  .login-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: var(--bg-secondary);
+  }
+  
+  .login-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 40px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .login-header {
+    text-align: center;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .login-header .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px;
+    background: var(--accent);
+    color: white;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  
+  .login-header h1 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  
+  .login-header p {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  
+  .login-form-group { margin-bottom: 16px; }
+  
+  .login-form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .login-form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 13px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: all 0.15s;
+  }
+  
+  .login-form-group input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
+  }
+  
+  .login-btn {
+    width: 100%;
+    padding: 11px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+  }
+  
+  .login-btn:hover { background: var(--accent-light); }
+  .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  
+  .login-error {
+    background: var(--danger-bg);
+    color: var(--danger);
+    padding: 10px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 14px;
+    display: none;
+    border-right: 3px solid var(--danger-light);
+  }
+  
+  .login-error.show { display: block; }
+  
+  .login-footer {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+  
+  /* ============ MAIN APP ============ */
+  .app-screen { display: none; }
+  .app-screen.show { display: block; }
+  
+  /* Top Bar - Bloomberg style */
+  .topbar {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .topbar-main {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 20px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  
+  .brand-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 20px;
+    border-left: 1px solid var(--border);
+    margin-left: 10px;
+  }
+  
+  .brand-tag {
+    background: var(--accent);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  .brand-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  .brand-subtitle {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+  
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-muted);
+    flex: 1;
+  }
+  
+  .breadcrumb a {
+    color: var(--accent);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .breadcrumb a:hover { text-decoration: underline; }
+  
+  .user-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .user-info {
+    text-align: left;
+  }
+  
+  .user-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  .user-role {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background: var(--accent);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 11px;
+  }
+  
+  .logout-btn {
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--text-secondary);
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.15s;
+  }
+  
+  .logout-btn:hover {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border-color: var(--danger-light);
+  }
+  
+  /* Status ticker - Bloomberg style */
+  .status-ticker {
+    display: flex;
+    align-items: center;
+    background: var(--bg-tertiary);
+    padding: 6px 20px;
+    gap: 24px;
+    font-size: 11px;
+    overflow-x: auto;
+  }
+  
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  
+  .ticker-label {
+    color: var(--text-muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .ticker-value {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  .ticker-value.danger { color: var(--danger-light); }
+  .ticker-value.success { color: var(--success-light); }
+  .ticker-value.warning { color: var(--warning-light); }
+  
+  .ticker-separator {
+    width: 1px;
+    height: 12px;
+    background: var(--border);
+  }
+  
+  /* Nav Tabs */
+  .nav-tabs {
+    display: flex;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
+    padding: 0 20px;
+    overflow-x: auto;
+  }
+  
+  .nav-tab {
+    padding: 11px 18px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    position: relative;
+    transition: all 0.15s;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+  }
+  
+  .nav-tab:hover { color: var(--text-primary); }
+  
+  .nav-tab.active {
+    color: var(--accent);
+    font-weight: 600;
+    border-bottom-color: var(--accent);
+  }
+  
+  .nav-tab .badge {
+    background: var(--text-muted);
+    color: white;
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+  
+  .nav-tab.active .badge { background: var(--accent); }
+  
+  /* Urgent alert */
+  .urgent-alert {
+    background: var(--danger-bg);
+    color: var(--danger);
+    padding: 8px 20px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--danger-light);
+  }
+  
+  .urgent-alert.hidden { display: none; }
+  
+  /* Viewer mode */
+  .viewer-mode-badge {
+    background: var(--info-bg);
+    color: var(--info);
+    padding: 6px 20px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  /* Container */
+  .container {
+    padding: 20px;
+    max-width: 100%;
+  }
+  
+  .view { display: none; }
+  .view.active { display: block; }
+  
+  /* Dashboard Stats Grid */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .stat-cell {
+    background: var(--bg-elevated);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border-right: 3px solid transparent;
+  }
+  
+  .stat-cell:hover { background: var(--bg-hover); }
+  
+  .stat-cell.danger { border-right-color: var(--danger-light); }
+  .stat-cell.warning { border-right-color: var(--warning-light); }
+  .stat-cell.success { border-right-color: var(--success-light); }
+  .stat-cell.accent { border-right-color: var(--accent); }
+  
+  .stat-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  
+  .stat-value {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  
+  .stat-cell.danger .stat-value { color: var(--danger-light); }
+  .stat-cell.warning .stat-value { color: var(--warning-light); }
+  .stat-cell.success .stat-value { color: var(--success-light); }
+  
+  .stat-meta {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+  
+  /* Filter bar */
+  .filter-bar {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  .search-box {
+    flex: 1;
+    min-width: 200px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 12px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+  }
+  
+  .search-box:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
+  }
+  
+  .filter-select {
+    padding: 8px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 12px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+  
+  /* Buttons */
+  .btn {
+    padding: 8px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    letter-spacing: 0.3px;
+  }
+  
+  .btn:hover { background: var(--bg-hover); }
+  
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+  
+  .btn-primary:hover { background: var(--accent-light); border-color: var(--accent-light); }
+  
+  .btn-danger {
+    background: var(--danger-light);
+    color: white;
+    border-color: var(--danger-light);
+  }
+  
+  .btn-danger:hover { background: var(--danger); }
+  
+  .btn-success {
+    background: var(--success-light);
+    color: white;
+    border-color: var(--success-light);
+  }
+  
+  .btn-sm { padding: 5px 10px; font-size: 11px; }
+  
+  /* Table - Bloomberg style */
+  .data-table {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  
+  .table-header {
+    padding: 10px 14px;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .table-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  
+  .table-count {
+    background: var(--text-muted);
+    color: white;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-right: 8px;
+  }
+  
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  
+  thead {
+    background: var(--bg-secondary);
+  }
+  
+  th {
+    text-align: right;
+    padding: 8px 14px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    vertical-align: middle;
+  }
+  
+  tbody tr {
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  
+  tbody tr:hover { background: var(--bg-hover); }
+  
+  tbody tr.urgent { background: var(--danger-bg); }
+  tbody tr.urgent:hover { background: var(--danger-bg); opacity: 0.9; }
+  
+  tbody tr.this-week { background: var(--warning-bg); }
+  
+  .td-main {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  .td-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  
+  .td-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+  }
+  
+  /* Status badges */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  
+  .badge-قائمة { background: var(--gold-bg); color: var(--gold); }
+  .badge-حكم-ابتدائي { background: var(--info-bg); color: var(--info); }
+  .badge-استئناف { background: #e9d8fd; color: #553c9a; }
+  .badge-تمييز { background: #d6bcfa; color: #44337a; }
+  .badge-تنفيذ { background: var(--warning-bg); color: var(--warning); }
+  .badge-منتهية { background: var(--success-bg); color: var(--success); }
+  
+  @media (prefers-color-scheme: dark) {
+    .badge-استئناف { background: #44337a; color: #d6bcfa; }
+    .badge-تمييز { background: #553c9a; color: #e9d8fd; }
+  }
+  
+  /* Countdown */
+  .countdown {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+  
+  .countdown.today { background: var(--danger-light); color: white; animation: pulse 2s infinite; }
+  .countdown.soon { background: var(--danger-bg); color: var(--danger); }
+  .countdown.week { background: var(--warning-bg); color: var(--warning); }
+  .countdown.normal { background: var(--accent-bg); color: var(--accent); }
+  .countdown.far { background: var(--bg-tertiary); color: var(--text-secondary); }
+  .countdown.past { background: var(--bg-tertiary); color: var(--text-muted); }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  
+  /* Two column layout */
+  .split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  
+  @media (max-width: 1024px) {
+    .split-layout { grid-template-columns: 1fr; }
+  }
+  
+  /* Properties Grid - More compact */
+  .properties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  
+  .property-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border-right: 3px solid var(--accent);
+  }
+  
+  .property-card:hover {
+    background: var(--bg-hover);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .property-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  
+  .property-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+  
+  .property-type {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .property-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  
+  .prop-stat-num {
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--text-primary);
+  }
+  
+  .prop-stat-num.urgent { color: var(--danger-light); }
+  
+  .prop-stat-label {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+  
+  /* Case Detail */
+  .detail-section {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  
+  .detail-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-tertiary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .detail-header h2 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .detail-body {
+    padding: 18px;
+  }
+  
+  .case-title-block {
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  
+  .case-title-block h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  
+  .case-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .meta-separator { color: var(--border-strong); }
+  
+  /* Info grid */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .info-cell {
+    background: var(--bg-elevated);
+    padding: 10px 14px;
+  }
+  
+  .info-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  
+  .info-value {
+    font-size: 13px;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+  
+  .info-value.mono { font-family: 'IBM Plex Mono', monospace; }
+  
+  /* Hearing alert */
+  .hearing-alert {
+    background: var(--warning-bg);
+    border: 1px solid var(--warning-light);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .hearing-alert.urgent {
+    background: var(--danger-bg);
+    border-color: var(--danger-light);
+  }
+  
+  .hearing-alert-content { flex: 1; }
+  
+  .hearing-alert-title {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+  
+  .hearing-alert-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  /* Procedure timeline */
+  .procedure-list {
+    padding: 16px;
+  }
+  
+  .procedure-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  
+  .procedure-item:last-child { border-bottom: none; }
+  
+  .procedure-date-col {
+    text-align: left;
+  }
+  
+  .procedure-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  
+  .procedure-time {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  
+  .procedure-content {
+    border-right: 3px solid var(--border-strong);
+    padding-right: 14px;
+  }
+  
+  .procedure-item.favorable .procedure-content { border-right-color: var(--success-light); }
+  .procedure-item.unfavorable .procedure-content { border-right-color: var(--danger-light); }
+  .procedure-item.execution .procedure-content { border-right-color: var(--warning-light); }
+  
+  .procedure-type-label {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  
+  .procedure-item.favorable .procedure-type-label { background: var(--success-bg); color: var(--success); }
+  .procedure-item.unfavorable .procedure-type-label { background: var(--danger-bg); color: var(--danger); }
+  .procedure-item.execution .procedure-type-label { background: var(--warning-bg); color: var(--warning); }
+  
+  .procedure-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  
+  .procedure-notes {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+  
+  .procedure-amount {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 3px 8px;
+    background: var(--success-bg);
+    color: var(--success);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 3px;
+  }
+  
+  /* Execution Tracker */
+  .exec-tracker {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--warning-light);
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+  
+  .exec-tracker-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--warning);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  
+  .amount-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .amount-cell {
+    background: var(--bg-elevated);
+    padding: 10px 12px;
+  }
+  
+  .amount-label {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  
+  .amount-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  
+  .amount-value.collected { color: var(--success-light); }
+  .amount-value.remaining { color: var(--danger-light); }
+  
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+  
+  .empty-state h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+  
+  .empty-state p {
+    font-size: 12px;
+  }
+  
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; right: 0; left: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .modal-overlay.active { display: flex; }
+  
+  .modal {
+    background: var(--bg-elevated);
+    border-radius: 8px;
+    padding: 0;
+    max-width: 680px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .modal-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-tertiary);
+  }
+  
+  .modal-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .close-btn {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--text-muted);
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    transition: all 0.15s;
+  }
+  
+  .close-btn:hover { background: var(--danger-bg); color: var(--danger); }
+  
+  .modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  
+  .form-group { margin-bottom: 0; }
+  .form-group.full { grid-column: 1 / -1; }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 12px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+  }
+  
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
+  }
+  
+  .form-textarea { min-height: 70px; resize: vertical; }
+  
+  .modal-footer {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-tertiary);
+  }
+  
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    padding: 10px 18px;
+    border-radius: 6px;
+    box-shadow: var(--shadow-lg);
+    z-index: 2000;
+    opacity: 0;
+    transition: all 0.2s;
+    pointer-events: none;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  
+  .toast.show { opacity: 1; }
+  
+  /* Loader */
+  .full-loader {
+    position: fixed;
+    top: 0; right: 0; left: 0; bottom: 0;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    flex-direction: column;
+  }
+  
+  .spinner {
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 12px;
+  }
+  
+  @keyframes spin { to { transform: rotate(360deg); } }
+  
+  .full-loader p {
+    color: var(--text-muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .sync-indicator {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    background: var(--success-light);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    z-index: 1500;
+    opacity: 0;
+    transition: opacity 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .sync-indicator.show { opacity: 1; }
+  
+  body.viewer-mode .editor-only { display: none !important; }
+  
+  /* Actions bar */
+  .actions-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  
+  /* PRINT */
+  @media print {
+    body { background: white !important; }
+    .topbar, .nav-tabs, .filter-bar, .urgent-alert, .viewer-mode-badge,
+    .modal-overlay, .toast, .sync-indicator, .no-print, .actions-bar,
+    .status-ticker, .dashboard-grid, .editor-only { display: none !important; }
+    
+    .container { padding: 0 !important; }
+    .detail-section { 
+      break-inside: avoid; 
+      box-shadow: none !important;
+      border: 1px solid #ccc !important;
+    }
+    .procedure-item { break-inside: avoid; }
+    
+    .print-header {
+      display: block !important;
+      text-align: center;
+      padding: 20px 0;
+      border-bottom: 2px solid #1a365d;
+      margin-bottom: 20px;
+    }
+    
+    .print-header h1 {
+      font-size: 20px;
+      color: #1a365d;
+      margin-bottom: 4px;
+    }
+    
+    .print-header p {
+      font-size: 11px;
+      color: #666;
+    }
+    
+    .print-footer {
+      display: block !important;
+      text-align: center;
+      padding: 12px 0;
+      margin-top: 20px;
+      border-top: 1px solid #ccc;
+      font-size: 10px;
+      color: #666;
+    }
+  }
+  
+  .print-header, .print-footer { display: none; }
+  
+  @media (max-width: 768px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .container { padding: 12px; }
+    .topbar-main { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .table-wrapper { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="full-loader" id="loader">
+  <div class="spinner"></div>
+  <p>SYNCING WITH CLOUD</p>
+</div>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen" style="display:none;">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="brand">⚖ AL-MARSHAD LEGAL</div>
+      <h1>عقارات علي سعد المرشاد</h1>
+      <p>الإدارة القانونية</p>
+    </div>
+    
+    <div class="login-error" id="loginError"></div>
+    
+    <form onsubmit="handleLogin(event)">
+      <div class="login-form-group">
+        <label>البريد الإلكتروني</label>
+        <input type="email" id="loginEmail" required placeholder="email@example.com">
+      </div>
+      
+      <div class="login-form-group">
+        <label>كلمة السر</label>
+        <input type="password" id="loginPassword" required placeholder="••••••••">
+      </div>
+      
+      <button type="submit" class="login-btn" id="loginBtn">دخول</button>
+    </form>
+    
+    <div class="login-footer">SECURED BY GOOGLE FIREBASE</div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div class="app-screen" id="appScreen">
+
+<header class="topbar">
+  <div class="topbar-main">
+    <div class="brand-block">
+      <div class="brand-tag">AML</div>
+      <div>
+        <div class="brand-title">عقارات علي سعد المرشاد</div>
+        <div class="brand-subtitle">LEGAL MANAGEMENT SYSTEM</div>
+      </div>
+    </div>
+    
+    <div class="breadcrumb" id="breadcrumb">
+      <span>الرئيسية</span>
+    </div>
+    
+    <div class="user-block">
+      <div class="user-info">
+        <div class="user-name" id="userName">—</div>
+        <div class="user-role" id="userRole">—</div>
+      </div>
+      <div class="user-avatar" id="userAvatar">—</div>
+      <button class="logout-btn" onclick="handleLogout()">خروج</button>
+    </div>
+  </div>
+  
+  <div class="status-ticker" id="statusTicker"></div>
+</header>
+
+<div class="viewer-mode-badge" id="viewerBanner" style="display:none;">
+  وضع الاطلاع فقط — يمكنك تصفح القضايا وطباعتها بدون تعديل
+</div>
+
+<div class="urgent-alert hidden" id="urgentAlert" onclick="showView('cases'); document.getElementById('casesFilter').value='upcoming'; renderCases();">
+  <span id="urgentAlertText"></span>
+</div>
+
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showView('dashboard')">لوحة المعلومات</button>
+  <button class="nav-tab" onclick="showView('cases')">القضايا</button>
+  <button class="nav-tab" onclick="showView('properties')">العقارات</button>
+  <button class="nav-tab" onclick="showView('execution')">متابعة التنفيذ</button>
+  <button class="nav-tab" onclick="showView('archive')">الأرشيف</button>
+</div>
+
+<div class="container">
+  
+  <!-- Dashboard -->
+  <div class="view active" id="view-dashboard">
+    <div class="dashboard-grid" id="dashboardStats"></div>
+    
+    <div class="split-layout">
+      <div class="data-table">
+        <div class="table-header">
+          <div>
+            <span class="table-title">الجلسات القادمة</span>
+            <span class="table-count" id="upcomingCount">0</span>
+          </div>
+          <button class="btn btn-sm" onclick="showView('cases'); document.getElementById('casesFilter').value='upcoming'; renderCases();">عرض الكل ←</button>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>التاريخ</th>
+                <th>القضية</th>
+                <th>الخصم</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="upcomingHearingsBody"></tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="data-table">
+        <div class="table-header">
+          <div>
+            <span class="table-title">آخر الإجراءات</span>
+            <span class="table-count" id="recentCount">0</span>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>التاريخ</th>
+                <th>الإجراء</th>
+                <th>القضية</th>
+              </tr>
+            </thead>
+            <tbody id="recentProceduresBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Cases -->
+  <div class="view" id="view-cases">
+    <div class="filter-bar">
+      <input type="text" class="search-box" id="casesSearch" placeholder="بحث برقم القضية، الخصم، العقار..." oninput="renderCases()">
+      <select class="filter-select" id="casesFilter" onchange="renderCases()">
+        <option value="active">القائمة فقط</option>
+        <option value="all">جميع القضايا</option>
+        <option value="upcoming">جلسات قادمة</option>
+      </select>
+      <button class="btn btn-primary editor-only" onclick="openCaseModal()">+ قضية جديدة</button>
+    </div>
+    <div id="casesContainer"></div>
+  </div>
+  
+  <!-- Properties -->
+  <div class="view" id="view-properties">
+    <div class="filter-bar">
+      <input type="text" class="search-box" id="propertiesSearch" placeholder="بحث عن عقار..." oninput="renderProperties()">
+      <button class="btn btn-primary editor-only" onclick="openPropertyModal()">+ عقار جديد</button>
+    </div>
+    <div id="propertiesContainer"></div>
+  </div>
+  
+  <div class="view" id="view-execution"><div id="executionContainer"></div></div>
+  <div class="view" id="view-archive"><div id="archiveContainer"></div></div>
+  <div class="view" id="view-propertyDetail"><div id="propertyDetailContainer"></div></div>
+  <div class="view" id="view-caseDetail"><div id="caseDetailContainer"></div></div>
+  
+</div>
+
+<div class="print-header">
+  <h1>عقارات علي سعد المرشاد</h1>
+  <p>الإدارة القانونية — ملف القضية</p>
+  <p id="printDate"></p>
+</div>
+
+<div class="print-footer">
+  وثيقة رسمية صادرة من نظام إدارة القضايا
+</div>
+
+</div>
+
+<!-- Case Modal -->
+<div class="modal-overlay" id="caseModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="caseModalTitle">قضية جديدة</div>
+      <button class="close-btn" onclick="closeCaseModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="caseForm" onsubmit="saveCase(event)">
+        <input type="hidden" id="caseId">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">رقم القضية *</label>
+            <input type="text" class="form-input" id="caseNumber" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">نوع الدعوى *</label>
+            <select class="form-select" id="caseType" required>
+              <option value="">اختر النوع</option>
+              <option value="إخلاء للسكن">إخلاء للسكن</option>
+              <option value="إخلاء للحاجة">إخلاء للحاجة</option>
+              <option value="إخلاء لعدم السداد">إخلاء لعدم سداد الأجرة</option>
+              <option value="مطالبة بالأجرة">مطالبة بالأجرة المتأخرة</option>
+              <option value="فسخ عقد إيجار">فسخ عقد إيجار</option>
+              <option value="تعويض">مطالبة بالتعويض</option>
+              <option value="استرداد عقار">استرداد عقار</option>
+              <option value="إثبات ملكية">إثبات ملكية</option>
+              <option value="منع تعرض">منع تعرض</option>
+              <option value="بطلان عقد">بطلان عقد</option>
+              <option value="صحة ونفاذ">صحة ونفاذ</option>
+              <option value="أخرى">أخرى</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label class="form-label">موضوع الدعوى *</label>
+            <input type="text" class="form-input" id="caseTitle" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">العقار محل النزاع *</label>
+            <select class="form-select" id="caseProperty" required>
+              <option value="">اختر العقار</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">صفتنا</label>
+            <select class="form-select" id="caseRole">
+              <option value="مدعي">مدعي</option>
+              <option value="مدعى عليه">مدعى عليه</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">الخصم *</label>
+            <input type="text" class="form-input" id="caseOpponent" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">رقم مدني/تجاري</label>
+            <input type="text" class="form-input" id="caseOpponentId">
+          </div>
+          <div class="form-group">
+            <label class="form-label">رقم تليفون</label>
+            <input type="text" class="form-input" id="caseOpponentPhone">
+          </div>
+          <div class="form-group">
+            <label class="form-label">المحكمة *</label>
+            <select class="form-select" id="caseCourt" required>
+              <option value="">اختر المحكمة</option>
+              <option value="الكلية - إيجارات">الكلية — دائرة الإيجارات</option>
+              <option value="الكلية - مدني">الكلية — مدني</option>
+              <option value="الكلية - تجاري">الكلية — تجاري</option>
+              <option value="الكلية - عقاري">الكلية — عقاري</option>
+              <option value="الجزئية">المحكمة الجزئية</option>
+              <option value="الاستئناف">محكمة الاستئناف</option>
+              <option value="التمييز">محكمة التمييز</option>
+              <option value="التنفيذ">إدارة التنفيذ</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">المحامي</label>
+            <input type="text" class="form-input" id="caseLawyer">
+          </div>
+          <div class="form-group">
+            <label class="form-label">موعد الجلسة القادمة</label>
+            <input type="datetime-local" class="form-input" id="caseHearing">
+          </div>
+          <div class="form-group">
+            <label class="form-label">المبلغ المطالب به (د.ك)</label>
+            <input type="number" class="form-input" id="caseAmount" step="0.001">
+          </div>
+          <div class="form-group">
+            <label class="form-label">تاريخ القيد</label>
+            <input type="date" class="form-input" id="caseDate">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">طلبات الدعوى</label>
+            <textarea class="form-textarea" id="caseDemands"></textarea>
+          </div>
+          <div class="form-group full">
+            <label class="form-label">ملاحظات</label>
+            <textarea class="form-textarea" id="caseNotes"></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn" onclick="closeCaseModal()">إلغاء</button>
+      <button type="button" class="btn btn-primary" onclick="document.getElementById('caseForm').requestSubmit()">حفظ القضية</button>
+    </div>
+  </div>
+</div>
+
+<!-- Procedure Modal -->
+<div class="modal-overlay" id="procedureModal">
+  <div class="modal" style="max-width: 560px;">
+    <div class="modal-header">
+      <div class="modal-title">إضافة إجراء / حكم</div>
+      <button class="close-btn" onclick="closeProcedureModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="procedureForm" onsubmit="saveProcedure(event)">
+        <input type="hidden" id="procedureCaseId">
+        <div class="form-group">
+          <label class="form-label">نوع الإجراء *</label>
+          <select class="form-select" id="procedureType" required onchange="updateProcedureForm()">
+            <option value="">اختر النوع</option>
+            <optgroup label="جلسات وإجراءات">
+              <option value="جلسة-مرافعة">جلسة مرافعة</option>
+              <option value="تأجيل">تأجيل الجلسة</option>
+              <option value="مذكرة">إيداع مذكرة</option>
+              <option value="مستندات">تقديم مستندات</option>
+              <option value="إعلان">إعلان قانوني</option>
+              <option value="خبرة">إحالة للخبرة</option>
+              <option value="تقرير-خبرة">إيداع تقرير الخبرة</option>
+              <option value="شهود">سماع شهود</option>
+              <option value="حجز للحكم">حجز للحكم</option>
+            </optgroup>
+            <optgroup label="إجراءات تحفظية وجزائية">
+              <option value="ضبط-وإحضار">ضبط وإحضار</option>
+              <option value="منع-سفر">منع من السفر</option>
+              <option value="حجز-تحفظي">حجز تحفظي</option>
+              <option value="حجز-ما-للمدين">حجز ما للمدين لدى الغير</option>
+              <option value="إنذار">إنذار رسمي</option>
+              <option value="بلاغ">تقديم بلاغ/شكوى</option>
+            </optgroup>
+            <optgroup label="الأحكام">
+              <option value="حكم-ابتدائي-لصالحنا">حكم ابتدائي لصالحنا</option>
+              <option value="حكم-ابتدائي-ضدنا">حكم ابتدائي ضدنا</option>
+              <option value="حكم-استئنافي-لصالحنا">حكم استئنافي لصالحنا</option>
+              <option value="حكم-استئنافي-ضدنا">حكم استئنافي ضدنا</option>
+              <option value="حكم-تمييز-لصالحنا">حكم تمييز لصالحنا</option>
+              <option value="حكم-تمييز-ضدنا">حكم تمييز ضدنا</option>
+              <option value="حكم-غيابي">حكم غيابي</option>
+            </optgroup>
+            <optgroup label="الطعون">
+              <option value="رفع-استئناف">رفع استئناف</option>
+              <option value="رفع-تمييز">رفع تمييز</option>
+              <option value="معارضة">معارضة على حكم غيابي</option>
+            </optgroup>
+            <optgroup label="التنفيذ">
+              <option value="استخراج-صيغة">استخراج الصيغة التنفيذية</option>
+              <option value="فتح-ملف-تنفيذ">فتح ملف تنفيذ</option>
+              <option value="حجز-تنفيذي">حجز تنفيذي</option>
+              <option value="إخلاء-بالقوة">إخلاء بالقوة الجبرية</option>
+              <option value="دفعة-تنفيذ">استلام دفعة</option>
+              <option value="تسوية">تسوية ودية</option>
+              <option value="انتهاء-تنفيذ">انتهاء التنفيذ بالكامل</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-grid" style="margin-top: 12px;">
+          <div class="form-group">
+            <label class="form-label">التاريخ *</label>
+            <input type="date" class="form-input" id="procedureDate" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">الجلسة القادمة (إن وجدت)</label>
+            <input type="datetime-local" class="form-input" id="procedureNextHearing">
+          </div>
+        </div>
+        <div class="form-group full" style="margin-top: 12px;">
+          <label class="form-label">العنوان/الملخص *</label>
+          <input type="text" class="form-input" id="procedureTitle" required>
+        </div>
+        <div class="form-group full" id="amountField" style="margin-top: 12px; display: none;">
+          <label class="form-label">المبلغ (د.ك)</label>
+          <input type="number" class="form-input" id="procedureAmount" step="0.001">
+        </div>
+        <div class="form-group full" style="margin-top: 12px;">
+          <label class="form-label">التفاصيل والملاحظات</label>
+          <textarea class="form-textarea" id="procedureNotes"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn" onclick="closeProcedureModal()">إلغاء</button>
+      <button type="button" class="btn btn-primary" onclick="document.getElementById('procedureForm').requestSubmit()">حفظ الإجراء</button>
+    </div>
+  </div>
+</div>
+
+<!-- Property Modal -->
+<div class="modal-overlay" id="propertyModal">
+  <div class="modal" style="max-width: 460px;">
+    <div class="modal-header">
+      <div class="modal-title" id="propertyModalTitle">عقار جديد</div>
+      <button class="close-btn" onclick="closePropertyModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="propertyForm" onsubmit="saveProperty(event)">
+        <input type="hidden" id="propertyId">
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label class="form-label">اسم العقار *</label>
+          <input type="text" class="form-input" id="propertyName" required>
+        </div>
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label class="form-label">النوع</label>
+          <select class="form-select" id="propertyType">
+            <option value="عمارة">عمارة سكنية</option>
+            <option value="مجمع">مجمع تجاري</option>
+            <option value="فيلا">فيلا</option>
+            <option value="شقة">شقة</option>
+            <option value="محل">محل تجاري</option>
+            <option value="مكتب">مكتب</option>
+            <option value="مستودع">مستودع</option>
+            <option value="أرض">أرض</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label class="form-label">المنطقة/العنوان</label>
+          <input type="text" class="form-input" id="propertyAddress">
+        </div>
+        <div class="form-group">
+          <label class="form-label">ملاحظات</label>
+          <textarea class="form-textarea" id="propertyNotes"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn" onclick="closePropertyModal()">إلغاء</button>
+      <button type="button" class="btn btn-primary" onclick="document.getElementById('propertyForm').requestSubmit()">حفظ</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="sync-indicator" id="syncIndicator">✓ تم الحفظ</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAXbuGjkcpsa4E7CPXfOr-p4iWcZu_vGNU",
+  authDomain: "almershad-cases.firebaseapp.com",
+  projectId: "almershad-cases",
+  storageBucket: "almershad-cases.firebasestorage.app",
+  messagingSenderId: "358031855402",
+  appId: "1:358031855402:web:5ebcc1d320235dbde2d853"
+};
+
+const ADMIN_UID = "TzvJDXF7afawwBxAEfQ72NbJe2m1";
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+window.firebaseAuth = auth;
+window.firebaseDB = db;
+window.firebaseSignIn = signInWithEmailAndPassword;
+window.firebaseSignOut = signOut;
+window.firebaseSetDoc = setDoc;
+window.firebaseDeleteDoc = deleteDoc;
+window.firebaseOnSnapshot = onSnapshot;
+window.firebaseCollection = collection;
+window.firebaseDoc = doc;
+window.ADMIN_UID = ADMIN_UID;
+
+onAuthStateChanged(auth, (user) => {
+  document.getElementById('loader').style.display = 'none';
+  if (user) {
+    window.currentUser = user;
+    window.isAdmin = (user.uid === ADMIN_UID);
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appScreen').classList.add('show');
+    if (typeof initApp === 'function') initApp();
+  } else {
+    window.currentUser = null;
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('appScreen').classList.remove('show');
+  }
+});
+</script>
+
+<script>
+let cases = [];
+let properties = [];
+let procedures = [];
+let currentView = 'dashboard';
+let currentPropertyId = null;
+let currentCaseId = null;
+let unsubscribers = [];
+
+async function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  const errorEl = document.getElementById('loginError');
+  const btn = document.getElementById('loginBtn');
+  
+  btn.disabled = true;
+  btn.textContent = 'جاري التحقق...';
+  errorEl.classList.remove('show');
+  
+  try {
+    await window.firebaseSignIn(window.firebaseAuth, email, password);
+  } catch (err) {
+    let msg = 'حدث خطأ في تسجيل الدخول';
+    if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
+      msg = 'البريد الإلكتروني أو كلمة السر غير صحيحة';
+    } else if (err.code === 'auth/too-many-requests') {
+      msg = 'محاولات كثيرة، حاول بعد قليل';
+    } else if (err.code === 'auth/network-request-failed') {
+      msg = 'لا يوجد اتصال بالإنترنت';
+    }
+    errorEl.textContent = msg;
+    errorEl.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = 'دخول';
+  }
+}
+
+async function handleLogout() {
+  if (!confirm('هل تريد تسجيل الخروج؟')) return;
+  unsubscribers.forEach(u => u());
+  unsubscribers = [];
+  await window.firebaseSignOut(window.firebaseAuth);
+  location.reload();
+}
+
+function initApp() {
+  const user = window.currentUser;
+  const isAdmin = window.isAdmin;
+  
+  document.getElementById('userName').textContent = user.email.split('@')[0];
+  document.getElementById('userRole').textContent = isAdmin ? 'ADMIN' : 'VIEWER';
+  document.getElementById('userAvatar').textContent = user.email.charAt(0).toUpperCase();
+  
+  if (!isAdmin) {
+    document.body.classList.add('viewer-mode');
+    document.getElementById('viewerBanner').style.display = 'block';
+  }
+  
+  subscribeToData();
+}
+
+function subscribeToData() {
+  const db = window.firebaseDB;
+  
+  unsubscribers.push(window.firebaseOnSnapshot(
+    window.firebaseCollection(db, 'cases'),
+    (snapshot) => {
+      cases = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      refreshCurrentView();
+      renderDashboard();
+      renderStatusTicker();
+      renderUrgentAlert();
+    }
+  ));
+  
+  unsubscribers.push(window.firebaseOnSnapshot(
+    window.firebaseCollection(db, 'properties'),
+    (snapshot) => {
+      properties = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      refreshCurrentView();
+      renderStatusTicker();
+    }
+  ));
+  
+  unsubscribers.push(window.firebaseOnSnapshot(
+    window.firebaseCollection(db, 'procedures'),
+    (snapshot) => {
+      procedures = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      refreshCurrentView();
+      renderDashboard();
+    }
+  ));
+}
+
+async function saveDoc(coll, id, data) {
+  if (!window.isAdmin) { showToast('ليس لديك صلاحية للتعديل'); return false; }
+  try {
+    await window.firebaseSetDoc(window.firebaseDoc(window.firebaseDB, coll, id), data);
+    showSync();
+    return true;
+  } catch (e) { console.error(e); showToast('فشل الحفظ'); return false; }
+}
+
+async function deleteDocById(coll, id) {
+  if (!window.isAdmin) { showToast('ليس لديك صلاحية للحذف'); return false; }
+  try {
+    await window.firebaseDeleteDoc(window.firebaseDoc(window.firebaseDB, coll, id));
+    showSync();
+    return true;
+  } catch (e) { console.error(e); showToast('فشل الحذف'); return false; }
+}
+
+function showSync() {
+  const el = document.getElementById('syncIndicator');
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 1500);
+}
+
+function renderStatusTicker() {
+  const now = new Date();
+  const ticker = document.getElementById('statusTicker');
+  ticker.innerHTML = `
+    <div class="ticker-item">
+      <span class="ticker-label">الوقت</span>
+      <span class="ticker-value mono">${now.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'})}</span>
+    </div>
+    <div class="ticker-separator"></div>
+    <div class="ticker-item">
+      <span class="ticker-label">التاريخ</span>
+      <span class="ticker-value">${now.toLocaleDateString('ar-KW', {day: 'numeric', month: 'short', year: 'numeric'})}</span>
+    </div>
+    <div class="ticker-separator"></div>
+    <div class="ticker-item">
+      <span class="ticker-label">إجمالي القضايا</span>
+      <span class="ticker-value mono">${cases.length}</span>
+    </div>
+    <div class="ticker-separator"></div>
+    <div class="ticker-item">
+      <span class="ticker-label">العقارات</span>
+      <span class="ticker-value mono">${properties.length}</span>
+    </div>
+    <div class="ticker-separator"></div>
+    <div class="ticker-item">
+      <span class="ticker-label">قيد التنفيذ</span>
+      <span class="ticker-value warning mono">${cases.filter(c => c.status === 'تنفيذ').length}</span>
+    </div>
+  `;
+}
+
+function renderUrgentAlert() {
+  const alert = document.getElementById('urgentAlert');
+  const text = document.getElementById('urgentAlertText');
+  const now = new Date();
+  const tomorrow = new Date(now.getTime() + 2 * 86400000);
+  
+  const urgent = cases.filter(c => {
+    if (!c.hearing || c.status === 'منتهية') return false;
+    const h = new Date(c.hearing);
+    return h >= now && h <= tomorrow;
+  });
+  
+  if (urgent.length > 0) {
+    text.innerHTML = `⚠ تنبيه: ${urgent.length} ${urgent.length === 1 ? 'جلسة' : 'جلسات'} اليوم أو غداً — اضغط للاطلاع`;
+    alert.classList.remove('hidden');
+  } else {
+    alert.classList.add('hidden');
+  }
+}
+
+function renderDashboard() {
+  const now = new Date();
+  const weekEnd = new Date(now.getTime() + 7 * 86400000);
+  
+  const active = cases.filter(c => c.status !== 'منتهية' && c.status !== 'تنفيذ').length;
+  const thisWeek = cases.filter(c => {
+    if (!c.hearing || c.status === 'منتهية') return false;
+    const h = new Date(c.hearing);
+    return h >= now && h <= weekEnd;
+  }).length;
+  const execution = cases.filter(c => c.status === 'تنفيذ').length;
+  const closed = cases.filter(c => c.status === 'منتهية').length;
+  
+  let totalRemaining = 0, totalCollected = 0;
+  cases.filter(c => c.status === 'تنفيذ').forEach(c => {
+    const amount = Number(c.amount) || 0;
+    const collected = procedures.filter(p => p.caseId === c.id && p.type === 'دفعة-تنفيذ')
+      .reduce((s, p) => s + (Number(p.amount) || 0), 0);
+    totalRemaining += (amount - collected);
+    totalCollected += collected;
+  });
+  
+  const statsContainer = document.getElementById('dashboardStats');
+  if (statsContainer) {
+    statsContainer.innerHTML = `
+      <div class="stat-cell danger" onclick="showView('cases'); document.getElementById('casesFilter').value='upcoming'; renderCases();">
+        <div class="stat-label">جلسات هذا الأسبوع</div>
+        <div class="stat-value">${thisWeek}</div>
+        <div class="stat-meta">UPCOMING HEARINGS</div>
+      </div>
+      <div class="stat-cell accent" onclick="showView('cases')">
+        <div class="stat-label">قضايا قائمة</div>
+        <div class="stat-value">${active}</div>
+        <div class="stat-meta">ACTIVE CASES</div>
+      </div>
+      <div class="stat-cell warning" onclick="showView('execution')">
+        <div class="stat-label">قيد التنفيذ</div>
+        <div class="stat-value">${execution}</div>
+        <div class="stat-meta">UNDER EXECUTION</div>
+      </div>
+      <div class="stat-cell success" onclick="showView('execution')">
+        <div class="stat-label">المتبقي للتحصيل</div>
+        <div class="stat-value">${formatMoneyShort(totalRemaining)}</div>
+        <div class="stat-meta">REMAINING COLLECTION</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">تم تحصيله</div>
+        <div class="stat-value" style="color: var(--success-light);">${formatMoneyShort(totalCollected)}</div>
+        <div class="stat-meta">TOTAL COLLECTED</div>
+      </div>
+      <div class="stat-cell" onclick="showView('archive')">
+        <div class="stat-label">قضايا منتهية</div>
+        <div class="stat-value" style="color: var(--text-muted);">${closed}</div>
+        <div class="stat-meta">CLOSED CASES</div>
+      </div>
+    `;
+  }
+  
+  // Upcoming hearings table
+  const upcomingHearings = cases
+    .filter(c => c.hearing && new Date(c.hearing) >= now && c.status !== 'منتهية')
+    .sort((a, b) => new Date(a.hearing) - new Date(b.hearing))
+    .slice(0, 5);
+  
+  document.getElementById('upcomingCount').textContent = upcomingHearings.length;
+  const upcomingBody = document.getElementById('upcomingHearingsBody');
+  if (upcomingBody) {
+    if (upcomingHearings.length === 0) {
+      upcomingBody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 30px; color: var(--text-muted);">لا توجد جلسات قادمة</td></tr>`;
+    } else {
+      upcomingBody.innerHTML = upcomingHearings.map(c => {
+        const cd = getCountdown(c.hearing);
+        return `
+          <tr onclick="showCaseDetail('${c.id}')" class="${cd && cd.class === 'today' ? 'urgent' : (cd && cd.class === 'week' ? 'this-week' : '')}">
+            <td class="mono">${formatDateShort(c.hearing)}<div class="td-sub">${formatTimeShort(c.hearing)}</div></td>
+            <td><div class="td-main">${c.title.substring(0, 30)}${c.title.length > 30 ? '...' : ''}</div><div class="td-sub">${c.number}</div></td>
+            <td>${c.opponent}</td>
+            <td>${cd ? `<span class="countdown ${cd.class}">${cd.text}</span>` : ''}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+  }
+  
+  // Recent procedures
+  const recentProcs = [...procedures].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
+  document.getElementById('recentCount').textContent = recentProcs.length;
+  const recentBody = document.getElementById('recentProceduresBody');
+  if (recentBody) {
+    if (recentProcs.length === 0) {
+      recentBody.innerHTML = `<tr><td colspan="3" style="text-align: center; padding: 30px; color: var(--text-muted);">لا توجد إجراءات</td></tr>`;
+    } else {
+      recentBody.innerHTML = recentProcs.map(p => {
+        const c = cases.find(x => x.id === p.caseId);
+        return `
+          <tr onclick="${c ? `showCaseDetail('${c.id}')` : ''}">
+            <td class="mono">${formatDateShort(p.date)}</td>
+            <td><div class="td-main">${getProcedureLabel(p.type)}</div><div class="td-sub">${p.title.substring(0, 35)}${p.title.length > 35 ? '...' : ''}</div></td>
+            <td>${c ? c.number : '—'}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+  }
+}
+
+function showView(view) {
+  currentView = view;
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  
+  document.getElementById('view-' + view).classList.add('active');
+  if (event && event.target.classList && event.target.classList.contains('nav-tab')) {
+    event.target.classList.add('active');
+  } else {
+    document.querySelectorAll('.nav-tab').forEach(t => {
+      if (t.getAttribute('onclick') && t.getAttribute('onclick').includes(`'${view}'`)) {
+        t.classList.add('active');
+      }
+    });
+  }
+  
+  updateBreadcrumb();
+  
+  switch(view) {
+    case 'dashboard': renderDashboard(); break;
+    case 'cases': renderCases(); break;
+    case 'properties': renderProperties(); break;
+    case 'execution': renderExecution(); break;
+    case 'archive': renderArchive(); break;
+  }
+}
+
+function updateBreadcrumb(extra) {
+  const bc = document.getElementById('breadcrumb');
+  if (extra) {
+    bc.innerHTML = `<a onclick="showView('dashboard')">الرئيسية</a> <span>/</span> ${extra}`;
+  } else {
+    bc.innerHTML = '<span>الرئيسية</span>';
+  }
+}
+
+function getCountdown(date) {
+  if (!date) return null;
+  const now = new Date();
+  const d = new Date(date);
+  const diff = d - now;
+  const days = Math.ceil(diff / 86400000);
+  if (days < 0) return { text: `−${Math.abs(days)}d`, class: 'past' };
+  if (days === 0) return { text: 'اليوم', class: 'today' };
+  if (days === 1) return { text: 'غداً', class: 'soon' };
+  if (days <= 3) return { text: `${days}d`, class: 'soon' };
+  if (days <= 7) return { text: `${days}d`, class: 'week' };
+  if (days <= 30) return { text: `${days}d`, class: 'normal' };
+  return { text: `${days}d`, class: 'far' };
+}
+
+function formatDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('ar-KW', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function formatDateShort(d) {
+  if (!d) return '—';
+  const date = new Date(d);
+  return `${date.getDate()}/${date.getMonth()+1}/${String(date.getFullYear()).slice(2)}`;
+}
+
+function formatTimeShort(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'});
+}
+
+function formatDateTime(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleString('ar-KW', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function formatMoney(n) {
+  if (!n) return '0 د.ك';
+  return Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 3 }) + ' د.ك';
+}
+
+function formatMoneyShort(n) {
+  if (!n) return '0';
+  const num = Number(n);
+  if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+  if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+  return num.toFixed(0);
+}
+
+function getCaseProcedures(caseId) {
+  return procedures.filter(p => p.caseId === caseId).sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+function getPropertyCases(propertyId) {
+  const prop = properties.find(p => p.id === propertyId);
+  if (!prop) return [];
+  return cases.filter(c => c.property === prop.name);
+}
+
+function renderCases() {
+  const container = document.getElementById('casesContainer');
+  const search = (document.getElementById('casesSearch')?.value || '').toLowerCase();
+  const filter = document.getElementById('casesFilter')?.value || 'active';
+  
+  let filtered = cases.filter(c => c.status !== 'تنفيذ' && c.status !== 'منتهية');
+  
+  if (filter === 'all') {
+    filtered = cases.filter(c => c.status !== 'تنفيذ' && c.status !== 'منتهية');
+  } else if (filter === 'upcoming') {
+    filtered = filtered.filter(c => c.hearing && new Date(c.hearing) >= new Date());
+  }
+  
+  if (search) {
+    filtered = filtered.filter(c =>
+      (c.number && c.number.toLowerCase().includes(search)) ||
+      (c.title && c.title.toLowerCase().includes(search)) ||
+      (c.opponent && c.opponent.toLowerCase().includes(search)) ||
+      (c.property && c.property.toLowerCase().includes(search))
+    );
+  }
+  
+  filtered.sort((a, b) => {
+    if (a.hearing && b.hearing) return new Date(a.hearing) - new Date(b.hearing);
+    if (a.hearing) return -1;
+    if (b.hearing) return 1;
+    return 0;
+  });
+  
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="empty-state"><h3>${cases.length === 0 ? 'لا توجد قضايا' : 'لا توجد نتائج'}</h3><p>${cases.length === 0 ? 'ابدأ بإضافة أول قضية' : 'جرب بحث أو فلتر مختلف'}</p></div>`;
+    return;
+  }
+  
+  container.innerHTML = `
+    <div class="data-table">
+      <div class="table-header">
+        <div>
+          <span class="table-title">قائمة القضايا</span>
+          <span class="table-count">${filtered.length}</span>
+        </div>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>رقم القضية</th>
+              <th>الموضوع</th>
+              <th>النوع</th>
+              <th>الخصم</th>
+              <th>العقار</th>
+              <th>المحكمة</th>
+              <th>الجلسة القادمة</th>
+              <th>الحالة</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${filtered.map(c => {
+              const cd = getCountdown(c.hearing);
+              return `
+                <tr onclick="showCaseDetail('${c.id}')" class="${cd && cd.class === 'today' ? 'urgent' : (cd && cd.class === 'week' ? 'this-week' : '')}">
+                  <td class="mono"><div class="td-main">${c.number}</div></td>
+                  <td><div class="td-main">${c.title}</div></td>
+                  <td>${c.type}</td>
+                  <td>${c.opponent}</td>
+                  <td>${c.property || '—'}</td>
+                  <td>${c.court}</td>
+                  <td class="mono">${c.hearing ? formatDateShort(c.hearing) + ' ' + formatTimeShort(c.hearing) : '—'} ${cd ? `<span class="countdown ${cd.class}">${cd.text}</span>` : ''}</td>
+                  <td><span class="badge badge-${c.status || 'قائمة'}">${c.status || 'قائمة'}</span></td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function renderProperties() {
+  const container = document.getElementById('propertiesContainer');
+  const search = (document.getElementById('propertiesSearch')?.value || '').toLowerCase();
+  
+  let filtered = properties.filter(p =>
+    !search ||
+    (p.name && p.name.toLowerCase().includes(search)) ||
+    (p.address && p.address.toLowerCase().includes(search))
+  );
+  
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="empty-state"><h3>${properties.length === 0 ? 'لا توجد عقارات' : 'لا نتائج'}</h3><p>${properties.length === 0 ? 'أضف عقاراتك لربطها بالقضايا' : ''}</p></div>`;
+    return;
+  }
+  
+  container.innerHTML = '<div class="properties-grid">' + filtered.map(p => {
+    const propCases = getPropertyCases(p.id);
+    const active = propCases.filter(c => c.status !== 'منتهية').length;
+    const urgent = propCases.filter(c => {
+      if (!c.hearing) return false;
+      const h = new Date(c.hearing);
+      const now = new Date();
+      return h >= now && h <= new Date(now.getTime() + 7*86400000);
+    }).length;
+    
+    return `
+      <div class="property-card" onclick="showPropertyDetail('${p.id}')">
+        <div class="property-header">
+          <div>
+            <div class="property-name">${p.name}</div>
+            <div class="property-type">${p.type || ''}${p.address ? ' • ' + p.address : ''}</div>
+          </div>
+        </div>
+        <div class="property-stats">
+          <div>
+            <div class="prop-stat-num">${propCases.length}</div>
+            <div class="prop-stat-label">إجمالي</div>
+          </div>
+          <div>
+            <div class="prop-stat-num">${active}</div>
+            <div class="prop-stat-label">قائمة</div>
+          </div>
+          <div>
+            <div class="prop-stat-num ${urgent > 0 ? 'urgent' : ''}">${urgent}</div>
+            <div class="prop-stat-label">عاجلة</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('') + '</div>';
+}
+
+function showPropertyDetail(propertyId) {
+  currentPropertyId = propertyId;
+  const prop = properties.find(p => p.id === propertyId);
+  if (!prop) return;
+  
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-propertyDetail').classList.add('active');
+  
+  updateBreadcrumb(`<a onclick="showView('properties')">العقارات</a> <span>/</span> <span>${prop.name}</span>`);
+  
+  const propCases = getPropertyCases(propertyId);
+  const active = propCases.filter(c => c.status !== 'منتهية');
+  const closed = propCases.filter(c => c.status === 'منتهية');
+  
+  const container = document.getElementById('propertyDetailContainer');
+  container.innerHTML = `
+    <div class="actions-bar">
+      <button class="btn" onclick="showView('properties')">← رجوع</button>
+      <button class="btn btn-primary editor-only" onclick="openCaseModalWithProperty('${prop.name}')">+ قضية جديدة</button>
+      <button class="btn editor-only" onclick="editProperty('${prop.id}')">تعديل العقار</button>
+    </div>
+    
+    <div class="detail-section">
+      <div class="detail-header">
+        <h2>${prop.name}</h2>
+      </div>
+      <div class="detail-body">
+        <div class="info-grid">
+          <div class="info-cell"><div class="info-label">النوع</div><div class="info-value">${prop.type || '—'}</div></div>
+          <div class="info-cell"><div class="info-label">المنطقة</div><div class="info-value">${prop.address || '—'}</div></div>
+          <div class="info-cell"><div class="info-label">إجمالي القضايا</div><div class="info-value mono">${propCases.length}</div></div>
+          <div class="info-cell"><div class="info-label">القائمة</div><div class="info-value mono">${active.length}</div></div>
+        </div>
+        ${prop.notes ? `<div style="margin-top: 16px; padding: 12px; background: var(--bg-tertiary); border-radius: 4px; font-size: 12px;"><strong>ملاحظات:</strong> ${prop.notes}</div>` : ''}
+      </div>
+    </div>
+    
+    ${active.length > 0 ? `
+      <div class="data-table">
+        <div class="table-header">
+          <div><span class="table-title">القضايا القائمة</span><span class="table-count">${active.length}</span></div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>رقم</th><th>الموضوع</th><th>الخصم</th><th>الجلسة</th><th>الحالة</th></tr></thead>
+            <tbody>
+              ${active.map(c => {
+                const cd = getCountdown(c.hearing);
+                return `<tr onclick="showCaseDetail('${c.id}')"><td class="mono">${c.number}</td><td>${c.title}</td><td>${c.opponent}</td><td class="mono">${c.hearing ? formatDateShort(c.hearing) : '—'} ${cd ? `<span class="countdown ${cd.class}">${cd.text}</span>` : ''}</td><td><span class="badge badge-${c.status || 'قائمة'}">${c.status || 'قائمة'}</span></td></tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    ` : '<div class="empty-state"><p>لا توجد قضايا قائمة على هذا العقار</p></div>'}
+    
+    ${closed.length > 0 ? `
+      <div class="data-table">
+        <div class="table-header">
+          <div><span class="table-title">القضايا المنتهية</span><span class="table-count">${closed.length}</span></div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>رقم</th><th>الموضوع</th><th>الخصم</th><th>الحالة</th></tr></thead>
+            <tbody>
+              ${closed.map(c => `<tr onclick="showCaseDetail('${c.id}')"><td class="mono">${c.number}</td><td>${c.title}</td><td>${c.opponent}</td><td><span class="badge badge-منتهية">منتهية</span></td></tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    ` : ''}
+  `;
+}
+
+function showCaseDetail(caseId) {
+  currentCaseId = caseId;
+  const c = cases.find(x => x.id === caseId);
+  if (!c) return;
+  
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-caseDetail').classList.add('active');
+  
+  updateBreadcrumb(`<a onclick="showView('cases')">القضايا</a> <span>/</span> <span>${c.number}</span>`);
+  
+  const procs = getCaseProcedures(caseId);
+  const cd = getCountdown(c.hearing);
+  const executionPayments = procs.filter(p => p.type === 'دفعة-تنفيذ').reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
+  const totalAmount = Number(c.amount) || 0;
+  const remaining = totalAmount - executionPayments;
+  const isExecution = c.status === 'تنفيذ' || executionPayments > 0;
+  
+  const container = document.getElementById('caseDetailContainer');
+  container.innerHTML = `
+    <div class="actions-bar no-print">
+      <button class="btn" onclick="goBack()">← رجوع</button>
+      <button class="btn btn-primary editor-only" onclick="openProcedureModal('${c.id}')">+ إضافة إجراء</button>
+      <button class="btn editor-only" onclick="editCase('${c.id}')">تعديل القضية</button>
+      <button class="btn" onclick="printCase()">طباعة</button>
+      <button class="btn btn-danger editor-only" onclick="deleteCase('${c.id}')">حذف</button>
+    </div>
+    
+    <div class="detail-section">
+      <div class="detail-body">
+        <div class="case-title-block">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+            <h1>${c.title}</h1>
+            <span class="badge badge-${c.status || 'قائمة'}">${c.status || 'قائمة'}</span>
+          </div>
+          <div class="case-meta">
+            <div class="meta-item">قضية رقم: <strong class="mono">${c.number}</strong></div>
+            <span class="meta-separator">|</span>
+            <div class="meta-item">${c.type}</div>
+            <span class="meta-separator">|</span>
+            <div class="meta-item">صفتنا: ${c.role || '—'}</div>
+          </div>
+        </div>
+        
+        ${c.hearing ? `
+          <div class="hearing-alert ${cd && (cd.class === 'today' || cd.class === 'soon') ? 'urgent' : ''}">
+            <div style="font-size: 18px;">⏰</div>
+            <div class="hearing-alert-content">
+              <div class="hearing-alert-title">الجلسة القادمة</div>
+              <div class="hearing-alert-date">${formatDateTime(c.hearing)}</div>
+            </div>
+            ${cd ? `<span class="countdown ${cd.class}">${cd.text}</span>` : ''}
+          </div>
+        ` : ''}
+        
+        <div class="info-grid">
+          <div class="info-cell">
+            <div class="info-label">الخصم</div>
+            <div class="info-value">${c.opponent}</div>
+            ${c.opponentId ? `<div style="font-size: 10px; color: var(--text-muted); margin-top: 3px;" class="mono">${c.opponentId}</div>` : ''}
+            ${c.opponentPhone ? `<div style="font-size: 10px; color: var(--text-muted);" class="mono">${c.opponentPhone}</div>` : ''}
+          </div>
+          <div class="info-cell">
+            <div class="info-label">العقار</div>
+            <div class="info-value">${c.property || '—'}</div>
+          </div>
+          <div class="info-cell">
+            <div class="info-label">المحكمة</div>
+            <div class="info-value">${c.court}</div>
+          </div>
+          <div class="info-cell">
+            <div class="info-label">المحامي</div>
+            <div class="info-value">${c.lawyer || '—'}</div>
+          </div>
+          ${c.amount ? `
+          <div class="info-cell">
+            <div class="info-label">المطالبة</div>
+            <div class="info-value mono">${formatMoney(c.amount)}</div>
+          </div>` : ''}
+          <div class="info-cell">
+            <div class="info-label">تاريخ القيد</div>
+            <div class="info-value mono">${formatDateShort(c.date)}</div>
+          </div>
+        </div>
+        
+        ${c.demands ? `
+          <div style="margin-top: 16px; padding: 14px; background: var(--bg-tertiary); border-radius: 4px;">
+            <div style="font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">طلبات الدعوى</div>
+            <div style="white-space: pre-wrap; line-height: 1.6; font-size: 12px;">${c.demands}</div>
+          </div>
+        ` : ''}
+        
+        ${c.notes ? `
+          <div style="margin-top: 10px; padding: 14px; background: var(--bg-tertiary); border-radius: 4px;">
+            <div style="font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">ملاحظات</div>
+            <div style="white-space: pre-wrap; line-height: 1.6; font-size: 12px;">${c.notes}</div>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+    
+    ${isExecution ? `
+      <div class="exec-tracker">
+        <div class="exec-tracker-title">⚖ متابعة التنفيذ</div>
+        <div class="amount-grid">
+          <div class="amount-cell">
+            <div class="amount-label">المحكوم به</div>
+            <div class="amount-value">${formatMoney(totalAmount)}</div>
+          </div>
+          <div class="amount-cell">
+            <div class="amount-label">المُحصّل</div>
+            <div class="amount-value collected">${formatMoney(executionPayments)}</div>
+          </div>
+          <div class="amount-cell">
+            <div class="amount-label">المتبقي</div>
+            <div class="amount-value remaining">${formatMoney(remaining)}</div>
+          </div>
+        </div>
+      </div>
+    ` : ''}
+    
+    <div class="detail-section">
+      <div class="detail-header">
+        <h2>سجل الإجراءات (${procs.length})</h2>
+        <button class="btn btn-sm btn-primary editor-only no-print" onclick="openProcedureModal('${c.id}')">+ إضافة</button>
+      </div>
+      <div class="procedure-list">
+        ${procs.length === 0 ? `<div class="empty-state" style="padding: 30px;"><h3>لا توجد إجراءات</h3>${window.isAdmin ? `<button class="btn btn-primary no-print" style="margin-top: 12px;" onclick="openProcedureModal('${c.id}')">+ أضف أول إجراء</button>` : ''}</div>` : procs.map(p => renderProcedureItem(p)).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderProcedureItem(p) {
+  let cssClass = '';
+  if (p.type && p.type.includes('لصالحنا')) cssClass = 'favorable';
+  else if (p.type && p.type.includes('ضدنا')) cssClass = 'unfavorable';
+  else if (p.type && (p.type.includes('تنفيذ') || p.type.includes('حجز') || p.type === 'ضبط-وإحضار' || p.type === 'منع-سفر' || p.type === 'إخلاء-بالقوة' || p.type === 'استخراج-صيغة' || p.type === 'دفعة-تنفيذ')) cssClass = 'execution';
+  
+  return `
+    <div class="procedure-item ${cssClass}">
+      <div class="procedure-date-col">
+        <div class="procedure-date">${formatDateShort(p.date)}</div>
+      </div>
+      <div class="procedure-content">
+        <div class="procedure-type-label">${getProcedureLabel(p.type)}</div>
+        <div class="procedure-title">${p.title}</div>
+        ${p.amount ? `<div class="procedure-amount">${formatMoney(p.amount)}</div>` : ''}
+        ${p.notes ? `<div class="procedure-notes">${p.notes}</div>` : ''}
+        ${p.nextHearing ? `<div style="margin-top: 6px; font-size: 11px; color: var(--text-muted);">الجلسة القادمة: ${formatDateTime(p.nextHearing)}</div>` : ''}
+        <div style="margin-top: 8px;" class="editor-only no-print">
+          <button class="btn btn-sm" onclick="deleteProcedure('${p.id}')">حذف</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function getProcedureLabel(type) {
+  const labels = {
+    'جلسة-مرافعة': 'جلسة مرافعة',
+    'تأجيل': 'تأجيل',
+    'مذكرة': 'إيداع مذكرة',
+    'مستندات': 'تقديم مستندات',
+    'إعلان': 'إعلان قانوني',
+    'خبرة': 'إحالة للخبرة',
+    'تقرير-خبرة': 'تقرير الخبرة',
+    'شهود': 'سماع شهود',
+    'حجز للحكم': 'حجز للحكم',
+    'ضبط-وإحضار': 'ضبط وإحضار',
+    'منع-سفر': 'منع من السفر',
+    'حجز-تحفظي': 'حجز تحفظي',
+    'حجز-ما-للمدين': 'حجز ما للمدين',
+    'إنذار': 'إنذار رسمي',
+    'بلاغ': 'تقديم بلاغ',
+    'حكم-ابتدائي-لصالحنا': '✓ حكم ابتدائي لصالحنا',
+    'حكم-ابتدائي-ضدنا': '✗ حكم ابتدائي ضدنا',
+    'حكم-استئنافي-لصالحنا': '✓ حكم استئنافي لصالحنا',
+    'حكم-استئنافي-ضدنا': '✗ حكم استئنافي ضدنا',
+    'حكم-تمييز-لصالحنا': '✓ حكم تمييز لصالحنا',
+    'حكم-تمييز-ضدنا': '✗ حكم تمييز ضدنا',
+    'حكم-غيابي': 'حكم غيابي',
+    'رفع-استئناف': 'رفع استئناف',
+    'رفع-تمييز': 'رفع تمييز',
+    'معارضة': 'معارضة',
+    'استخراج-صيغة': 'استخراج الصيغة التنفيذية',
+    'فتح-ملف-تنفيذ': 'فتح ملف تنفيذ',
+    'حجز-تنفيذي': 'حجز تنفيذي',
+    'إخلاء-بالقوة': 'إخلاء بالقوة الجبرية',
+    'دفعة-تنفيذ': '💰 استلام دفعة',
+    'تسوية': 'تسوية ودية',
+    'انتهاء-تنفيذ': '✓ انتهاء التنفيذ'
+  };
+  return labels[type] || type;
+}
+
+function printCase() {
+  document.getElementById('printDate').textContent = 
+    'تاريخ الطباعة: ' + new Date().toLocaleDateString('ar-KW', { day: 'numeric', month: 'long', year: 'numeric' });
+  window.print();
+}
+
+function renderExecution() {
+  const container = document.getElementById('executionContainer');
+  const execCases = cases.filter(c => c.status === 'تنفيذ');
+  
+  if (execCases.length === 0) {
+    container.innerHTML = `<div class="empty-state"><h3>لا توجد قضايا قيد التنفيذ</h3><p>القضايا اللي صدر فيها حكم لصالحنا تظهر هنا تلقائياً</p></div>`;
+    return;
+  }
+  
+  let totalClaimed = 0, totalCollected = 0;
+  execCases.forEach(c => {
+    totalClaimed += Number(c.amount) || 0;
+    const payments = procedures.filter(p => p.caseId === c.id && p.type === 'دفعة-تنفيذ').reduce((s, p) => s + (Number(p.amount) || 0), 0);
+    totalCollected += payments;
+  });
+  
+  container.innerHTML = `
+    <div class="exec-tracker">
+      <div class="exec-tracker-title">⚖ إجمالي ملفات التنفيذ (${execCases.length})</div>
+      <div class="amount-grid">
+        <div class="amount-cell"><div class="amount-label">المحكوم به</div><div class="amount-value">${formatMoney(totalClaimed)}</div></div>
+        <div class="amount-cell"><div class="amount-label">المُحصّل</div><div class="amount-value collected">${formatMoney(totalCollected)}</div></div>
+        <div class="amount-cell"><div class="amount-label">المتبقي</div><div class="amount-value remaining">${formatMoney(totalClaimed - totalCollected)}</div></div>
+      </div>
+    </div>
+    
+    <div class="data-table">
+      <div class="table-header">
+        <div><span class="table-title">قضايا قيد التنفيذ</span></div>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>رقم</th><th>الموضوع</th><th>الخصم</th><th>المحكوم به</th><th>المُحصّل</th><th>المتبقي</th></tr></thead>
+          <tbody>
+            ${execCases.map(c => {
+              const payments = procedures.filter(p => p.caseId === c.id && p.type === 'دفعة-تنفيذ').reduce((s, p) => s + (Number(p.amount) || 0), 0);
+              const amount = Number(c.amount) || 0;
+              return `<tr onclick="showCaseDetail('${c.id}')">
+                <td class="mono">${c.number}</td>
+                <td>${c.title}</td>
+                <td>${c.opponent}</td>
+                <td class="mono">${formatMoney(amount)}</td>
+                <td class="mono" style="color: var(--success-light);">${formatMoney(payments)}</td>
+                <td class="mono" style="color: var(--danger-light);">${formatMoney(amount - payments)}</td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function renderArchive() {
+  const container = document.getElementById('archiveContainer');
+  const closed = cases.filter(c => c.status === 'منتهية');
+  
+  if (closed.length === 0) {
+    container.innerHTML = `<div class="empty-state"><h3>لا توجد قضايا منتهية</h3></div>`;
+    return;
+  }
+  
+  container.innerHTML = `
+    <div class="data-table">
+      <div class="table-header">
+        <div><span class="table-title">القضايا المنتهية</span><span class="table-count">${closed.length}</span></div>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>رقم</th><th>الموضوع</th><th>الخصم</th><th>العقار</th><th>الحالة</th></tr></thead>
+          <tbody>
+            ${closed.map(c => `<tr onclick="showCaseDetail('${c.id}')">
+              <td class="mono">${c.number}</td>
+              <td>${c.title}</td>
+              <td>${c.opponent}</td>
+              <td>${c.property || '—'}</td>
+              <td><span class="badge badge-منتهية">منتهية</span></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+// Case Modal
+function openCaseModal(caseData = null) {
+  if (!window.isAdmin) { showToast('ليس لديك صلاحية'); return; }
+  
+  const propSelect = document.getElementById('caseProperty');
+  propSelect.innerHTML = '<option value="">اختر العقار</option>' +
+    properties.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+  
+  document.getElementById('caseModal').classList.add('active');
+  document.getElementById('caseModalTitle').textContent = caseData ? 'تعديل القضية' : 'قضية جديدة';
+  document.getElementById('caseForm').reset();
+  document.getElementById('caseId').value = '';
+  
+  if (caseData) {
+    document.getElementById('caseId').value = caseData.id;
+    document.getElementById('caseNumber').value = caseData.number || '';
+    document.getElementById('caseType').value = caseData.type || '';
+    document.getElementById('caseTitle').value = caseData.title || '';
+    document.getElementById('caseProperty').value = caseData.property || '';
+    document.getElementById('caseRole').value = caseData.role || 'مدعي';
+    document.getElementById('caseOpponent').value = caseData.opponent || '';
+    document.getElementById('caseOpponentId').value = caseData.opponentId || '';
+    document.getElementById('caseOpponentPhone').value = caseData.opponentPhone || '';
+    document.getElementById('caseCourt').value = caseData.court || '';
+    document.getElementById('caseLawyer').value = caseData.lawyer || '';
+    document.getElementById('caseHearing').value = caseData.hearing || '';
+    document.getElementById('caseAmount').value = caseData.amount || '';
+    document.getElementById('caseDate').value = caseData.date || '';
+    document.getElementById('caseDemands').value = caseData.demands || '';
+    document.getElementById('caseNotes').value = caseData.notes || '';
+  }
+}
+
+function openCaseModalWithProperty(propertyName) {
+  openCaseModal();
+  setTimeout(() => { document.getElementById('caseProperty').value = propertyName; }, 50);
+}
+
+function closeCaseModal() {
+  document.getElementById('caseModal').classList.remove('active');
+}
+
+async function saveCase(e) {
+  e.preventDefault();
+  const id = document.getElementById('caseId').value;
+  const existingCase = id ? cases.find(c => c.id === id) : null;
+  const newId = id || 'case_' + Date.now();
+  
+  const data = {
+    number: document.getElementById('caseNumber').value,
+    type: document.getElementById('caseType').value,
+    title: document.getElementById('caseTitle').value,
+    property: document.getElementById('caseProperty').value,
+    role: document.getElementById('caseRole').value,
+    opponent: document.getElementById('caseOpponent').value,
+    opponentId: document.getElementById('caseOpponentId').value,
+    opponentPhone: document.getElementById('caseOpponentPhone').value,
+    court: document.getElementById('caseCourt').value,
+    lawyer: document.getElementById('caseLawyer').value,
+    status: existingCase ? existingCase.status : 'قائمة',
+    hearing: document.getElementById('caseHearing').value,
+    amount: document.getElementById('caseAmount').value,
+    date: document.getElementById('caseDate').value,
+    demands: document.getElementById('caseDemands').value,
+    notes: document.getElementById('caseNotes').value,
+    updated: new Date().toISOString()
+  };
+  
+  const success = await saveDoc('cases', newId, data);
+  if (success) {
+    closeCaseModal();
+    showToast(id ? 'تم التحديث' : 'تمت الإضافة');
+  }
+}
+
+function editCase(id) {
+  const c = cases.find(x => x.id === id);
+  if (c) openCaseModal(c);
+}
+
+async function deleteCase(id) {
+  if (!window.isAdmin) { showToast('ليس لديك صلاحية'); return; }
+  const c = cases.find(x => x.id === id);
+  if (!c) return;
+  
+  const procs = getCaseProcedures(id);
+  const collectedAmount = procs.filter(p => p.type === 'دفعة-تنفيذ').reduce((s, p) => s + (Number(p.amount) || 0), 0);
+  
+  const confirmMessage = 
+    `⚠️ تنبيه: حذف نهائي للقضية\n\n` +
+    `رقم: ${c.number}\n` +
+    `الموضوع: ${c.title}\n` +
+    `الخصم: ${c.opponent}\n` +
+    (c.amount ? `المبلغ: ${formatMoney(c.amount)}\n` : '') +
+    (collectedAmount > 0 ? `المُحصّل: ${formatMoney(collectedAmount)}\n` : '') +
+    `\nسيُحذف:\n• بيانات القضية\n• ${procs.length} إجراء مسجل\n\nهل أنت متأكد؟`;
+  
+  if (!confirm(confirmMessage)) { showToast('تم الإلغاء'); return; }
+  
+  const userInput = prompt(`اكتب رقم القضية للتأكيد:\n${c.number}`);
+  if (userInput === null) { showToast('تم الإلغاء'); return; }
+  if (userInput.trim() !== c.number.trim()) {
+    alert('❌ رقم القضية غير مطابق');
+    showToast('لم يتم الحذف');
+    return;
+  }
+  
+  for (const p of procs) await deleteDocById('procedures', p.id);
+  await deleteDocById('cases', id);
+  showView('cases');
+  showToast(`تم حذف ${c.number}`);
+}
+
+// Procedure
+function openProcedureModal(caseId) {
+  if (!window.isAdmin) { showToast('ليس لديك صلاحية'); return; }
+  document.getElementById('procedureModal').classList.add('active');
+  document.getElementById('procedureCaseId').value = caseId;
+  document.getElementById('procedureForm').reset();
+  document.getElementById('procedureCaseId').value = caseId;
+  document.getElementById('procedureDate').value = new Date().toISOString().split('T')[0];
+}
+
+function closeProcedureModal() {
+  document.getElementById('procedureModal').classList.remove('active');
+}
+
+function updateProcedureForm() {
+  const type = document.getElementById('procedureType').value;
+  const amountField = document.getElementById('amountField');
+  if (type === 'دفعة-تنفيذ' || type.includes('حكم-') || type === 'تسوية') {
+    amountField.style.display = 'block';
+  } else {
+    amountField.style.display = 'none';
+  }
+}
+
+async function saveProcedure(e) {
+  e.preventDefault();
+  const caseId = document.getElementById('procedureCaseId').value;
+  const procId = 'proc_' + Date.now();
+  
+  const data = {
+    caseId: caseId,
+    type: document.getElementById('procedureType').value,
+    date: document.getElementById('procedureDate').value,
+    title: document.getElementById('procedureTitle').value,
+    amount: document.getElementById('procedureAmount').value,
+    notes: document.getElementById('procedureNotes').value,
+    nextHearing: document.getElementById('procedureNextHearing').value,
+    created: new Date().toISOString()
+  };
+  
+  const success = await saveDoc('procedures', procId, data);
+  
+  if (success) {
+    const c = cases.find(x => x.id === caseId);
+    if (c) {
+      let newStatus = c.status;
+      if (data.type.includes('لصالحنا')) newStatus = 'تنفيذ';
+      else if (data.type === 'حكم-ابتدائي-ضدنا') newStatus = 'حكم-ابتدائي';
+      else if (data.type === 'رفع-استئناف') newStatus = 'استئناف';
+      else if (data.type === 'رفع-تمييز') newStatus = 'تمييز';
+      else if (data.type === 'فتح-ملف-تنفيذ' || data.type === 'استخراج-صيغة') newStatus = 'تنفيذ';
+      else if (data.type === 'انتهاء-تنفيذ' || data.type === 'تسوية') newStatus = 'منتهية';
+      
+      const updatedCase = { ...c, status: newStatus };
+      delete updatedCase.id;
+      if (data.nextHearing) updatedCase.hearing = data.nextHearing;
+      await saveDoc('cases', caseId, updatedCase);
+    }
+    closeProcedureModal();
+    showToast('تم حفظ الإجراء');
+  }
+}
+
+async function deleteProcedure(id) {
+  if (!confirm('حذف هذا الإجراء؟')) return;
+  await deleteDocById('procedures', id);
+  showToast('تم الحذف');
+}
+
+// Property
+function openPropertyModal(propData = null) {
+  if (!window.isAdmin) { showToast('ليس لديك صلاحية'); return; }
+  document.getElementById('propertyModal').classList.add('active');
+  document.getElementById('propertyModalTitle').textContent = propData ? 'تعديل العقار' : 'عقار جديد';
+  document.getElementById('propertyForm').reset();
+  document.getElementById('propertyId').value = '';
+  
+  if (propData) {
+    document.getElementById('propertyId').value = propData.id;
+    document.getElementById('propertyName').value = propData.name || '';
+    document.getElementById('propertyType').value = propData.type || 'عمارة';
+    document.getElementById('propertyAddress').value = propData.address || '';
+    document.getElementById('propertyNotes').value = propData.notes || '';
+  }
+}
+
+function closePropertyModal() {
+  document.getElementById('propertyModal').classList.remove('active');
+}
+
+function editProperty(id) {
+  const p = properties.find(x => x.id === id);
+  if (p) openPropertyModal(p);
+}
+
+async function saveProperty(e) {
+  e.preventDefault();
+  const id = document.getElementById('propertyId').value;
+  const newId = id || 'prop_' + Date.now();
+  
+  const data = {
+    name: document.getElementById('propertyName').value,
+    type: document.getElementById('propertyType').value,
+    address: document.getElementById('propertyAddress').value,
+    notes: document.getElementById('propertyNotes').value
+  };
+  
+  const success = await saveDoc('properties', newId, data);
+  if (success) { closePropertyModal(); showToast('تم الحفظ'); }
+}
+
+function refreshCurrentView() {
+  switch(currentView) {
+    case 'dashboard': renderDashboard(); break;
+    case 'cases': renderCases(); break;
+    case 'properties': renderProperties(); break;
+    case 'execution': renderExecution(); break;
+    case 'archive': renderArchive(); break;
+  }
+  if (currentCaseId && document.getElementById('view-caseDetail').classList.contains('active')) {
+    const c = cases.find(x => x.id === currentCaseId);
+    if (c) showCaseDetail(currentCaseId);
+  }
+}
+
+function goBack() {
+  if (currentPropertyId) showPropertyDetail(currentPropertyId);
+  else showView(currentView);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Update ticker time every minute
+setInterval(() => {
+  if (window.currentUser) renderStatusTicker();
+}, 60000);
+
+window.handleLogin = handleLogin;
+window.handleLogout = handleLogout;
+window.initApp = initApp;
+window.showView = showView;
+window.showCaseDetail = showCaseDetail;
+window.showPropertyDetail = showPropertyDetail;
+window.openCaseModal = openCaseModal;
+window.openCaseModalWithProperty = openCaseModalWithProperty;
+window.closeCaseModal = closeCaseModal;
+window.saveCase = saveCase;
+window.editCase = editCase;
+window.deleteCase = deleteCase;
+window.openProcedureModal = openProcedureModal;
+window.closeProcedureModal = closeProcedureModal;
+window.saveProcedure = saveProcedure;
+window.deleteProcedure = deleteProcedure;
+window.updateProcedureForm = updateProcedureForm;
+window.openPropertyModal = openPropertyModal;
+window.closePropertyModal = closePropertyModal;
+window.saveProperty = saveProperty;
+window.editProperty = editProperty;
+window.renderCases = renderCases;
+window.renderProperties = renderProperties;
+window.printCase = printCase;
+window.goBack = goBack;
+</script>
+
+</body>
+</html>

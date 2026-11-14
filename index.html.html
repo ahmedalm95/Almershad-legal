@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>متابعة القضايا</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Reem+Kufi:wght@600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: one calm column. Two tabs (cases, visits log). Sky blue on soft light surfaces, light theme by choice. */
+:root{
+  --bg:#f1f8fd;
+  --surface:#ffffff;
+  --ink:#1d3442;
+  --muted:#5f7d8d;
+  --line:#d2e6f2;
+  --sky:#dcf0fb;
+  --accent:#1583bf;
+  --accent-ink:#ffffff;
+  --danger:#b3472f;
+  --font-display:"Reem Kufi","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --font-body:"IBM Plex Sans Arabic","Noto Sans Arabic",Tahoma,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:var(--font-body);font-size:16px;line-height:1.6;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px 72px;display:flex;flex-direction:column;gap:16px}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px}
+h1{font-family:var(--font-display);font-weight:600;font-size:1.7rem;line-height:1.3;margin:0;color:var(--accent)}
+.count{color:var(--muted);font-size:.9rem;font-variant-numeric:tabular-nums}
+h2{font-size:1.05rem;font-weight:700;margin:0;overflow-wrap:anywhere}
+
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--sky);border-radius:12px;padding:5px}
+.tabs button{border:0;background:transparent;color:var(--ink);padding:10px 8px;border-radius:9px;font-weight:500}
+.tabs button.full{grid-column:1 / -1}
+.pending{color:var(--danger);font-size:.9rem;font-weight:500}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--accent);font-weight:700;
+  box-shadow:0 1px 4px rgba(21,131,191,.18)}
+
+.view{display:flex;flex-direction:column;gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;
+  display:flex;flex-direction:column;gap:14px}
+.panel-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:640px){.grid{grid-template-columns:1fr 1fr}.grid .wide{grid-column:1 / -1}}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.85rem;font-weight:500;color:var(--muted)}
+input[type="text"],textarea,select{
+  width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);
+  border:1px solid var(--line);border-radius:9px;padding:10px 12px;
+}
+textarea{min-height:84px;resize:vertical}
+button.choice[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+.paybox{display:flex;flex-direction:column;gap:10px;background:var(--sky);border-radius:9px;padding:12px}
+.paybox input{background:var(--surface)}
+.calc{font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+select:focus-visible,input:focus-visible,textarea:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px}
+
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+button{font:inherit;font-weight:500;border-radius:9px;padding:10px 16px;cursor:pointer;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+button.soft{background:var(--sky);border-color:var(--sky);color:var(--ink);font-weight:700}
+button.danger{color:var(--danger);border-color:var(--danger)}
+button.small{padding:6px 12px;font-size:.9rem}
+button:disabled{opacity:.55;cursor:default}
+
+.note{font-size:.88rem;color:var(--muted);margin:0}
+.banner{border:1px solid var(--line);border-inline-start:4px solid var(--danger);background:var(--surface);
+  border-radius:9px;padding:10px 12px;font-size:.9rem}
+[hidden]{display:none !important}
+
+.list{display:flex;flex-direction:column;gap:12px}
+.case{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.case-main{padding:14px 16px 10px;display:flex;flex-direction:column;gap:6px}
+.case-title{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px}
+.case-title strong{font-size:1.1rem;overflow-wrap:anywhere}
+.chip{font-size:.8rem;background:var(--sky);border-radius:999px;padding:1px 10px;color:var(--ink);
+  overflow-wrap:anywhere}
+.meta{color:var(--muted);font-size:.9rem;overflow-wrap:anywhere}
+.meta.closed{color:var(--danger);font-weight:700}
+.next{background:var(--sky);border-inline-start:4px solid var(--accent);padding:8px 16px;
+  display:flex;flex-direction:column;gap:4px;font-size:.95rem}
+.next b{color:var(--accent)}
+.next span{overflow-wrap:anywhere;white-space:pre-wrap}
+details{border-top:1px solid var(--line)}
+summary{padding:10px 16px;cursor:pointer;font-size:.9rem;color:var(--muted)}
+dl{margin:0;padding:0 16px 12px;display:grid;grid-template-columns:1fr;gap:8px}
+@media (min-width:640px){dl{grid-template-columns:1fr 1fr}}
+dt{font-size:.8rem;color:var(--muted)}
+dd{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.case-actions{border-top:1px solid var(--line);padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.follow{border-top:1px solid var(--line);padding:14px 16px;background:var(--bg);display:flex;flex-direction:column;gap:14px}
+.empty{border:1px dashed var(--line);border-radius:12px;padding:22px 16px;color:var(--muted);text-align:center;
+  background:var(--surface)}
+
+.visit{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+  display:flex;flex-direction:column;gap:10px}
+.visit.latest{border-color:var(--accent);border-inline-start-width:4px}
+.visit-title{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px}
+.visit-title strong{font-size:1.1rem;overflow-wrap:anywhere}
+
+#toast{position:fixed;inset-inline:16px;bottom:16px;margin:0 auto;max-width:520px;
+  background:var(--ink);color:#fff;border-radius:10px;padding:12px 16px;font-size:.95rem;
+  box-shadow:0 6px 24px rgba(29,52,66,.25);z-index:10}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>متابعة القضايا</h1>
+    <div class="count" id="count">جاري التحميل…</div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" id="tabCases" aria-selected="true" aria-controls="viewCases">القضايا</button>
+    <button type="button" role="tab" id="tabVisits" aria-selected="false" aria-controls="viewVisits">سجل الزيارات</button>
+    <button type="button" role="tab" class="full" id="tabSettle" aria-selected="false" aria-controls="viewSettle">التسويات</button>
+  </div>
+
+  <div class="banner" id="localBanner" hidden>البيانات محفوظة على هذا الجهاز فقط حالياً، وما راح تظهر على جهاز ثاني.</div>
+  <div class="banner" id="staleBanner" hidden>ما قدرنا نوصل للبيانات المحفوظة حالياً. اللي تشوفه ممكن يكون ناقص أو قديم.</div>
+
+  <!-- القضايا -->
+  <div class="view" id="viewCases" role="tabpanel" aria-labelledby="tabCases">
+    <section class="panel" aria-labelledby="formTitle">
+      <div class="panel-head">
+        <h2 id="formTitle">إضافة قضية</h2>
+        <button type="button" class="small" id="toggleForm" aria-expanded="true" aria-controls="caseForm">إخفاء</button>
+      </div>
+      <form id="caseForm" novalidate>
+        <div class="grid" id="fields"></div>
+        <div class="row" style="margin-top:14px">
+          <button type="submit" class="primary" id="saveBtn">حفظ القضية</button>
+          <button type="button" id="cancelEdit" hidden>إلغاء التعديل</button>
+          <button type="button" id="clearForm">تفريغ الخانات</button>
+        </div>
+      </form>
+    </section>
+
+    <div class="field">
+      <label for="search">بحث في القضايا (اكتب أي كلمة)</label>
+      <input type="text" id="search" autocomplete="off">
+    </div>
+    <div class="list" id="caseList"></div>
+  </div>
+
+  <!-- سجل الزيارات -->
+  <div class="view" id="viewVisits" role="tabpanel" aria-labelledby="tabVisits" hidden>
+
+    <div class="view" id="visitsHome">
+      <section class="panel" aria-labelledby="newVisitTitle">
+        <h2 id="newVisitTitle">زيارة جديدة للمحامي</h2>
+        <div class="field">
+          <label for="visitName">تاريخ الزيارة أو اسمها (اكتبه مثل ما تبي)</label>
+          <input type="text" id="visitName" autocomplete="off">
+        </div>
+        <div class="row">
+          <button type="button" class="primary" id="newVisitBtn">ابدأ الزيارة</button>
+        </div>
+        <p class="note">تطلع لك قضاياك الجارية بآخر بياناتها، وتحدّث خانات المتابعة لكل قضية وانت عند المحامي.</p>
+      </section>
+      <div class="list" id="visitList"></div>
+    </div>
+
+    <div class="view" id="visitDetail" hidden>
+      <div class="row">
+        <button type="button" class="small" id="backBtn">رجوع لسجل الزيارات</button>
+      </div>
+      <section class="panel">
+        <div class="panel-head">
+          <h2 id="visitHeading"></h2>
+          <span class="chip" id="visitBadge" hidden>الزيارة الأخيرة</span>
+        </div>
+        <div class="field">
+          <label for="pdfTitle">عنوان الجدول</label>
+          <input type="text" id="pdfTitle" autocomplete="off" value="جدول متابعة القضايا">
+        </div>
+        <div class="row">
+          <button type="button" class="primary" id="exportBtn">إصدار جدول المحامي PDF</button>
+          <p class="note" id="exportNote"></p>
+        </div>
+      </section>
+      <div class="list" id="visitCases"></div>
+    </div>
+  </div>
+
+  <!-- التسويات -->
+  <div class="view" id="viewSettle" role="tabpanel" aria-labelledby="tabSettle" hidden>
+    <section class="panel" aria-labelledby="settleTitle">
+      <h2 id="settleTitle">إضافة تسوية</h2>
+      <form id="settleForm" novalidate>
+        <div class="grid" id="settleFields"></div>
+        <div class="row" style="margin-top:14px">
+          <button type="submit" class="primary" id="settleSave">حفظ التسوية</button>
+          <button type="button" id="settleCancel" hidden>إلغاء التعديل</button>
+        </div>
+      </form>
+      <p class="note">عبّي اللي تعرفه بس. الخانة الفاضية تطلع لك "ما تحدد للحين" عشان ما تنساها.</p>
+    </section>
+    <div class="list" id="settleList"></div>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function(){
+"use strict";
+
+var FIELDS = [
+  {k:"opponent",    l:"الخصم",                      w:1.15},
+  {k:"caseNo",      l:"رقم القضية",                 w:0.9},
+  {k:"officeCode",  l:"كود القضية بمكتب المحامي",   w:0.85},
+  {k:"circuit",     l:"الدائرة",                    w:0.8},
+  {k:"caseType",    l:"نوع القضية",                 w:0.8},
+  {k:"claims",      l:"قيمة المطالبات",             w:0.9},
+  {k:"sessionDate", l:"تاريخ الجلسة",               w:0.8},
+  {fu:true, k:"prevSession", l:"ما تم في الجلسة السابقة",    w:1.5, long:true},
+  {fu:true, k:"lastAction",  l:"آخر إجراء",                  w:1.2, long:true},
+  {fu:true, k:"nextSession", l:"الجلسة القادمة",             w:0.8},
+  {fu:true, k:"required",    l:"المطلوب من المحامي",         w:1.5, long:true},
+  {k:"property",    l:"العقار",                     w:1.0}
+];
+var SFIELDS = [
+  {k:"name",   l:"الاسم"},
+  {k:"base",   l:"المبلغ الأساسي"},
+  {k:"after",  l:"المبلغ بعد التفاوض"},
+  {k:"notes",  l:"ملاحظات (وين وصلنا)", long:true}
+];
+var SSHORT = { base:"المبلغ الأساسي", after:"المبلغ بعد التفاوض", pay:"طريقة الدفع" };
+var settlements = [], settleLoaded = false, editingSettle = null, sPayMode = "", caseOptsSig = null;
+var LS_KEY = "cases-tracker-v2";
+
+var $ = function(id){ return document.getElementById(id); };
+var cases = [], visits = [];
+var casesLoaded = false, visitsLoaded = false;
+var tab = "cases";
+var editingId = null;        // case being edited in the cases tab
+var openVisitId = null;      // visit shown in detail
+var followId = null;         // case whose follow-up form is open inside a visit
+var confirmKey = null;       // "case:<id>" or "visit:<id>"
+var db = null, downloads = null, mode = "pending", standalone = false;
+
+/* ---------- helpers ---------- */
+function el(tag, cls, text){
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+function btn(cls, text, fn){
+  var b = el("button", cls, text); b.type = "button";
+  b.addEventListener("click", fn); return b;
+}
+function fieldsOf(src){
+  var o = {};
+  FIELDS.forEach(function(f){ o[f.k] = (src && src[f.k]) || ""; });
+  return o;
+}
+function buildFields(box, prefix, values, onlyFollow){
+  FIELDS.forEach(function(f){
+    if (onlyFollow && !f.fu) return;
+    var d = el("div", "field" + (f.long ? " wide" : ""));
+    var lab = el("label", null, f.l); lab.htmlFor = prefix + f.k;
+    var inp;
+    if (f.long){ inp = document.createElement("textarea"); inp.rows = 3; }
+    else { inp = document.createElement("input"); inp.type = "text"; }
+    inp.id = prefix + f.k; inp.autocomplete = "off";
+    inp.value = (values && values[f.k]) || "";
+    d.appendChild(lab); d.appendChild(inp); box.appendChild(d);
+  });
+}
+function readFields(prefix, onlyFollow){
+  var o = {};
+  FIELDS.forEach(function(f){ if (onlyFollow && !f.fu) return; o[f.k] = $(prefix + f.k).value.trim(); });
+  return o;
+}
+function byCreated(a, b){ return (a.createdAt || 0) - (b.createdAt || 0); }
+function newId(p){ return p + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+function latestVisit(){ return visits.length ? visits[visits.length - 1] : null; }
+function findVisit(id){ return visits.find(function(v){ return v.id === id; }) || null; }
+function findCase(id){ return cases.find(function(c){ return c.id === id; }) || null; }
+
+var toastTimer = null;
+function toast(msg){
+  var t = $("toast"); t.textContent = msg; t.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.hidden = true; }, 4200);
+}
+function writeError(e){
+  var code = e && e.code;
+  if (code === "invalid_argument") toast("ما تم الحفظ. ما عندك صلاحية تعديل على هذي الصفحة.");
+  else if (code === "quota_exceeded") toast("ما تم الحفظ. المساحة امتلت، احذف زيارات قديمة وجرب مرة ثانية.");
+  else toast("ما تم الحفظ. تأكد من الاتصال وجرب مرة ثانية.");
+}
+
+/* ---------- storage ---------- */
+function localLoad(){
+  try {
+    var raw = localStorage.getItem(LS_KEY);
+    var o = raw ? JSON.parse(raw) : {};
+    cases = o.cases || []; visits = o.visits || []; settlements = o.settlements || [];
+  } catch(e){ cases = []; visits = []; settlements = []; }
+}
+function localSave(){
+  try { localStorage.setItem(LS_KEY, JSON.stringify({ cases: cases, visits: visits, settlements: settlements })); } catch(e){}
+}
+
+async function writeEntry(v, caseId, body){
+  if (mode === "db"){
+    var patch = { entries: {} }; patch.entries[caseId] = body;
+    await db.collection("visits").doc(v.id).update(patch);
+  } else {
+    v.entries = v.entries || {}; v.entries[caseId] = body; localSave();
+  }
+}
+
+/* save from the cases tab: keeps the latest visit in step */
+async function saveCase(data, id){
+  var existing = id ? findCase(id) : null;
+  var body = Object.assign({}, data, { createdAt: existing ? (existing.createdAt || Date.now()) : Date.now() });
+  if (existing && existing.closed) body.closed = true;
+  if (mode === "db"){
+    var ref = id ? db.collection("cases").doc(id) : db.collection("cases").doc();
+    await ref.set(body);
+  } else {
+    if (existing) Object.assign(existing, body);
+    else cases.push(Object.assign({ id: newId("c") }, body));
+    cases.sort(byCreated); localSave();
+  }
+  var lv = latestVisit();
+  if (id && lv && lv.entries && lv.entries[id]) await writeEntry(lv, id, body);
+}
+
+async function setClosed(id, val){
+  if (mode === "db") await db.collection("cases").doc(id).update({ closed: val });
+  else { var c = findCase(id); if (c){ c.closed = val; localSave(); } }
+}
+
+async function deleteCase(id){
+  if (mode === "db") await db.collection("cases").doc(id).delete();
+  else { cases = cases.filter(function(c){ return c.id !== id; }); localSave(); }
+  var lv = latestVisit();
+  if (lv && lv.entries && lv.entries[id]){
+    var entries = {};
+    Object.keys(lv.entries).forEach(function(k){ if (k !== id) entries[k] = lv.entries[k]; });
+    if (mode === "db") await db.collection("visits").doc(lv.id).set({ name: lv.name || "", createdAt: lv.createdAt || 0, entries: entries });
+    else { lv.entries = entries; localSave(); }
+  }
+}
+
+async function createVisit(name){
+  var entries = {};
+  cases.forEach(function(c){
+    if (c.closed) return;
+    entries[c.id] = Object.assign(fieldsOf(c), { createdAt: c.createdAt || Date.now() });
+  });
+  var body = { name: name, createdAt: Date.now(), entries: entries };
+  if (mode === "db"){
+    var ref = db.collection("visits").doc();
+    await ref.set(body);
+    return ref.id;
+  }
+  var v = Object.assign({ id: newId("v") }, body);
+  visits.push(v); visits.sort(byCreated); localSave();
+  return v.id;
+}
+
+async function deleteVisit(id){
+  if (mode === "db") await db.collection("visits").doc(id).delete();
+  else { visits = visits.filter(function(v){ return v.id !== id; }); localSave(); }
+}
+
+/* save from inside a visit: the latest visit also updates the case itself */
+async function saveEntry(visitId, caseId, data){
+  var v = findVisit(visitId); if (!v) throw { code: "unavailable" };
+  var master = findCase(caseId);
+  var prev = (v.entries && v.entries[caseId]) || master || {};
+  var body = Object.assign(fieldsOf(prev), data, { createdAt: prev.createdAt || Date.now() });
+  var lv = latestVisit();
+  await writeEntry(v, caseId, body);
+  if (master && lv && lv.id === visitId){
+    var mb = Object.assign({}, body);
+    if (master.closed) mb.closed = true;
+    if (mode === "db") await db.collection("cases").doc(caseId).set(mb);
+    else { Object.assign(master, mb); localSave(); }
+  }
+}
+
+/* rows a visit shows: its saved entries, plus cases added later when it is the latest visit */
+function visitRows(v){
+  var rows = [];
+  var entries = v.entries || {};
+  Object.keys(entries).forEach(function(k){ rows.push(Object.assign({ id: k }, entries[k])); });
+  var lv = latestVisit();
+  if (lv && lv.id === v.id){
+    cases.forEach(function(c){ if (!entries[c.id] && !c.closed) rows.push(Object.assign({}, c)); });
+  }
+  rows.sort(byCreated);
+  return rows;
+}
+
+/* ---------- cases tab ---------- */
+buildFields($("fields"), "f_", null);
+
+function fillForm(c){ FIELDS.forEach(function(f){ $("f_" + f.k).value = (c && c[f.k]) || ""; }); }
+function setFormOpen(open){
+  $("caseForm").hidden = !open;
+  $("toggleForm").textContent = open ? "إخفاء" : "فتح";
+  $("toggleForm").setAttribute("aria-expanded", open ? "true" : "false");
+}
+function stopEditing(){
+  editingId = null;
+  $("formTitle").textContent = "إضافة قضية";
+  $("saveBtn").textContent = "حفظ القضية";
+  $("cancelEdit").hidden = true;
+  fillForm(null);
+}
+$("toggleForm").addEventListener("click", function(){ setFormOpen($("caseForm").hidden); });
+$("clearForm").addEventListener("click", function(){ fillForm(null); });
+$("cancelEdit").addEventListener("click", stopEditing);
+
+$("caseForm").addEventListener("submit", async function(ev){
+  ev.preventDefault();
+  var data = readFields("f_");
+  if (!FIELDS.some(function(f){ return data[f.k] !== ""; })){ toast("اكتب بيانات القضية أول."); return; }
+  if (mode === "pending"){ toast("لحظة، جاري تجهيز الحفظ. جرب بعد ثواني."); return; }
+  var b = $("saveBtn"); b.disabled = true;
+  try {
+    var wasEdit = !!editingId;
+    await saveCase(data, editingId);
+    stopEditing();
+    toast(wasEdit ? "تم حفظ التعديل." : "تم حفظ القضية.");
+  } catch(e){ writeError(e); }
+  b.disabled = false;
+  render(true);
+});
+
+function caseCard(c){
+  var card = el("article", "case");
+  var main = el("div", "case-main");
+  var title = el("div", "case-title");
+  title.appendChild(el("strong", null, c.opponent || "بدون اسم خصم"));
+  if (c.officeCode) title.appendChild(el("span", "chip", "كود المكتب: " + c.officeCode));
+  main.appendChild(title);
+  if (c.closed) main.appendChild(el("div", "meta closed", "قضية منتهية"));
+  var meta = [];
+  if (c.caseNo) meta.push("رقم القضية: " + c.caseNo);
+  if (c.circuit) meta.push("الدائرة: " + c.circuit);
+  if (c.caseType) meta.push(c.caseType);
+  if (meta.length) main.appendChild(el("div", "meta", meta.join("  ·  ")));
+  card.appendChild(main);
+
+  if (c.nextSession || c.required){
+    var nx = el("div", "next");
+    [["nextSession", "الجلسة القادمة: "], ["required", "المطلوب من المحامي: "]].forEach(function(p){
+      if (!c[p[0]]) return;
+      var s = el("span"); s.appendChild(el("b", null, p[1])); s.appendChild(document.createTextNode(c[p[0]]));
+      nx.appendChild(s);
+    });
+    card.appendChild(nx);
+  }
+
+  var det = el("details");
+  det.appendChild(el("summary", null, "كل بيانات القضية"));
+  var dl = el("dl");
+  FIELDS.forEach(function(f){
+    var box = el("div");
+    box.appendChild(el("dt", null, f.l));
+    box.appendChild(el("dd", null, c[f.k] || "—"));
+    dl.appendChild(box);
+  });
+  det.appendChild(dl);
+  card.appendChild(det);
+  return card;
+}
+
+function renderCases(){
+  var list = $("caseList"); list.textContent = "";
+  if (!casesLoaded){ list.appendChild(el("div", "empty", "جاري تحميل القضايا…")); return; }
+  if (!cases.length){
+    list.appendChild(el("div", "empty", "ما في قضايا للحين. عبّي الخانات فوق واضغط حفظ القضية."));
+    return;
+  }
+  var q = $("search").value.trim().toLowerCase();
+  var shown = cases.filter(function(c){
+    return !q || FIELDS.some(function(f){ return String(c[f.k] || "").toLowerCase().indexOf(q) !== -1; });
+  });
+  if (!shown.length){ list.appendChild(el("div", "empty", "ما لقينا قضية فيها هذي الكلمة.")); return; }
+
+  shown.forEach(function(c){
+    var card = caseCard(c);
+    var act = el("div", "case-actions");
+    if (confirmKey === "case:" + c.id){
+      act.appendChild(el("span", null, "تحذف هذي القضية نهائياً؟"));
+      var yes = btn("small danger", "نعم، احذف", async function(){
+        yes.disabled = true;
+        try { await deleteCase(c.id); if (editingId === c.id) stopEditing(); toast("تم حذف القضية."); }
+        catch(e){ writeError(e); }
+        confirmKey = null; render(true);
+      });
+      act.appendChild(yes);
+      act.appendChild(btn("small", "لا", function(){ confirmKey = null; render(true); }));
+    } else {
+      act.appendChild(btn("small soft", "تعديل", function(){
+        editingId = c.id; fillForm(c); setFormOpen(true);
+        $("formTitle").textContent = "تعديل قضية";
+        $("saveBtn").textContent = "حفظ التعديل";
+        $("cancelEdit").hidden = false;
+        $("formTitle").scrollIntoView({ block: "start" });
+      }));
+      var cl = btn("small", c.closed ? "إرجاعها قضية جارية" : "قضية منتهية", async function(){
+        cl.disabled = true;
+        try { await setClosed(c.id, !c.closed); toast(c.closed ? "رجعت القضية جارية." : "صارت القضية منتهية، وما راح تطلع في الزيارات الجديدة."); }
+        catch(e){ writeError(e); }
+        render(true);
+      });
+      act.appendChild(cl);
+      act.appendChild(btn("small danger", "حذف", function(){ confirmKey = "case:" + c.id; render(true); }));
+    }
+    card.appendChild(act);
+    list.appendChild(card);
+  });
+}
+$("search").addEventListener("input", function(){ renderCases(); });
+
+/* ---------- visits tab ---------- */
+$("newVisitBtn").addEventListener("click", async function(){
+  var name = $("visitName").value.trim();
+  if (!name){ toast("اكتب تاريخ الزيارة أو اسمها أول."); return; }
+  if (mode === "pending" || !casesLoaded){ toast("لحظة، جاري تحميل القضايا. جرب بعد ثواني."); return; }
+  if (!cases.some(function(c){ return !c.closed; })){ toast("ما في قضايا جارية. أضف قضاياك من خانة القضايا أول."); return; }
+  var b = $("newVisitBtn"); b.disabled = true;
+  try {
+    var id = await createVisit(name);
+    $("visitName").value = "";
+    openVisitId = id; followId = null;
+    toast("بدأت الزيارة. حدّث خانات كل قضية.");
+  } catch(e){ writeError(e); }
+  b.disabled = false;
+  render(true);
+});
+$("backBtn").addEventListener("click", function(){ openVisitId = null; followId = null; render(true); });
+
+function renderVisitList(){
+  var list = $("visitList"); list.textContent = "";
+  if (!visitsLoaded){ list.appendChild(el("div", "empty", "جاري تحميل الزيارات…")); return; }
+  if (!visits.length){
+    list.appendChild(el("div", "empty", "ما في زيارات مسجلة للحين. اكتب تاريخ الزيارة فوق واضغط ابدأ الزيارة."));
+    return;
+  }
+  var lv = latestVisit();
+  visits.slice().reverse().forEach(function(v){
+    var isLatest = lv && lv.id === v.id;
+    var card = el("article", "visit" + (isLatest ? " latest" : ""));
+    var t = el("div", "visit-title");
+    t.appendChild(el("strong", null, v.name || "زيارة بدون اسم"));
+    if (isLatest) t.appendChild(el("span", "chip", "الزيارة الأخيرة"));
+    card.appendChild(t);
+    card.appendChild(el("div", "meta", "عدد القضايا: " + visitRows(v).length));
+    var act = el("div", "row");
+    if (confirmKey === "visit:" + v.id){
+      act.appendChild(el("span", null, "تحذف هذي الزيارة من السجل؟"));
+      var yes = btn("small danger", "نعم، احذف", async function(){
+        yes.disabled = true;
+        try { await deleteVisit(v.id); toast("تم حذف الزيارة."); } catch(e){ writeError(e); }
+        confirmKey = null; render(true);
+      });
+      act.appendChild(yes);
+      act.appendChild(btn("small", "لا", function(){ confirmKey = null; render(true); }));
+    } else {
+      act.appendChild(btn("small primary", "فتح الزيارة", function(){ openVisitId = v.id; followId = null; render(true); window.scrollTo(0, 0); }));
+      act.appendChild(btn("small danger", "حذف", function(){ confirmKey = "visit:" + v.id; render(true); }));
+    }
+    card.appendChild(act);
+    list.appendChild(card);
+  });
+}
+
+function renderVisitDetail(v){
+  var lv = latestVisit();
+  $("visitHeading").textContent = "زيارة: " + (v.name || "بدون اسم");
+  $("visitBadge").hidden = !(lv && lv.id === v.id);
+  var list = $("visitCases"); list.textContent = "";
+  var rows = visitRows(v);
+  if (!rows.length){ list.appendChild(el("div", "empty", "ما في قضايا في هذي الزيارة.")); return; }
+
+  rows.forEach(function(c){
+    var card = caseCard(c);
+    if (followId === c.id){
+      var box = el("div", "follow");
+      var grid = el("div", "grid");
+      buildFields(grid, "v_", c, true);
+      box.appendChild(grid);
+      var r = el("div", "row");
+      var save = btn("primary", "حفظ المتابعة", async function(){
+        save.disabled = true;
+        try {
+          await saveEntry(v.id, c.id, readFields("v_", true));
+          followId = null;
+          toast("تم حفظ المتابعة.");
+        } catch(e){ writeError(e); save.disabled = false; return; }
+        render(true);
+      });
+      r.appendChild(save);
+      r.appendChild(btn("", "إلغاء", function(){ followId = null; render(true); }));
+      box.appendChild(r);
+      card.appendChild(box);
+    } else {
+      var act = el("div", "case-actions");
+      act.appendChild(btn("small soft", "متابعة وتحديث", function(){ followId = c.id; render(true); }));
+      card.appendChild(act);
+    }
+    list.appendChild(card);
+  });
+}
+
+/* ---------- settlements tab ---------- */
+function parseAmount(str){
+  var s = String(str || "")
+    .replace(/[٠-٩]/g, function(d){ return "٠١٢٣٤٥٦٧٨٩".indexOf(d); })
+    .replace(/[۰-۹]/g, function(d){ return "۰۱۲۳۴۵۶۷۸۹".indexOf(d); })
+    .replace(/٫/g, ".").replace(/[,٬،\s]/g, "");
+  var m = s.match(/\d+(\.\d+)?/);
+  return m ? parseFloat(m[0]) : NaN;
+}
+function fmtAmount(n){ return (Math.round(n * 1000) / 1000).toLocaleString("en-US", { maximumFractionDigits: 3 }); }
+function caseLabel(c){ return (c.opponent || "بدون اسم خصم") + (c.caseNo ? " (" + c.caseNo + ")" : ""); }
+function payText(s){
+  if (s.payMode === "once") return "دفعة وحدة";
+  if (s.payMode === "inst"){
+    var m = parseAmount(s.months), a = parseAmount(s.after);
+    if (m > 0 && a > 0) return "على " + s.months + " شهر، كل شهر " + fmtAmount(a / m);
+    if (s.months) return "على " + s.months + " شهر";
+    return "على دفعات، وعدد الأشهر ما تحدد للحين";
+  }
+  return s.pay || "";
+}
+
+(function buildSettleForm(){
+  var box = $("settleFields");
+  var d0 = el("div", "field wide");
+  var l0 = el("label", null, "القضية (اختر من قضاياك المسجلة)"); l0.htmlFor = "s_case";
+  var sel = document.createElement("select"); sel.id = "s_case";
+  d0.appendChild(l0); d0.appendChild(sel); box.appendChild(d0);
+  sel.addEventListener("change", function(){
+    var c = findCase(sel.value);
+    if (c && !$("s_name").value.trim()) $("s_name").value = c.opponent || "";
+  });
+
+  SFIELDS.forEach(function(f){
+    var d = el("div", "field" + (f.long ? " wide" : ""));
+    var lab = el("label", null, f.l); lab.htmlFor = "s_" + f.k;
+    var inp;
+    if (f.long){ inp = document.createElement("textarea"); inp.rows = 3; }
+    else { inp = document.createElement("input"); inp.type = "text"; }
+    inp.id = "s_" + f.k; inp.autocomplete = "off";
+    d.appendChild(lab); d.appendChild(inp); box.appendChild(d);
+
+    if (f.k === "after"){
+      var pb = el("div", "paybox wide"); pb.id = "payBox"; pb.hidden = true;
+      pb.appendChild(el("div", null, "طريقة الدفع (اتركها إذا ما اتفقتوا للحين)"));
+      var r = el("div", "row");
+      var b1 = btn("choice", "دفعة وحدة", function(){ sPayMode = sPayMode === "once" ? "" : "once"; updatePayUI(); });
+      var b2 = btn("choice", "على دفعات", function(){ sPayMode = sPayMode === "inst" ? "" : "inst"; updatePayUI(); });
+      b1.id = "payOnce"; b2.id = "payInst";
+      r.appendChild(b1); r.appendChild(b2); pb.appendChild(r);
+      var md = el("div", "field"); md.id = "monthsBox"; md.hidden = true;
+      var ml = el("label", null, "على كم شهر؟"); ml.htmlFor = "s_months";
+      var mi = document.createElement("input"); mi.type = "text"; mi.id = "s_months"; mi.autocomplete = "off"; mi.inputMode = "numeric";
+      md.appendChild(ml); md.appendChild(mi);
+      var calc = el("div", "calc"); calc.id = "payCalc";
+      md.appendChild(calc);
+      pb.appendChild(md);
+      box.appendChild(pb);
+      inp.addEventListener("input", updatePayUI);
+      mi.addEventListener("input", updatePayUI);
+    }
+  });
+})();
+
+function updatePayUI(){
+  var after = $("s_after").value.trim();
+  $("payBox").hidden = !after;
+  $("payOnce").setAttribute("aria-pressed", sPayMode === "once" ? "true" : "false");
+  $("payInst").setAttribute("aria-pressed", sPayMode === "inst" ? "true" : "false");
+  $("monthsBox").hidden = sPayMode !== "inst";
+  var a = parseAmount(after), m = parseAmount($("s_months").value);
+  var t = "";
+  if (sPayMode === "inst"){
+    if (!(a > 0)) t = "اكتب المبلغ بعد التفاوض بالأرقام عشان نقسمه.";
+    else if (m > 0) t = "القسط كل شهر: " + fmtAmount(a / m);
+  }
+  $("payCalc").textContent = t;
+}
+
+function refreshCaseOptions(keep){
+  var sel = $("s_case");
+  var sig = cases.map(function(c){ return c.id + "|" + caseLabel(c); }).join("\n") + "\n" + (keep ? keep.id : "");
+  if (sig === caseOptsSig) return;
+  caseOptsSig = sig;
+  var cur = keep ? keep.id : sel.value;
+  sel.textContent = "";
+  var o0 = el("option", null, "بدون قضية"); o0.value = ""; sel.appendChild(o0);
+  var found = false;
+  cases.forEach(function(c){
+    var o = el("option", null, caseLabel(c)); o.value = c.id; sel.appendChild(o);
+    if (c.id === cur) found = true;
+  });
+  if (keep && keep.id && !found){
+    var ox = el("option", null, keep.label || "قضية محذوفة"); ox.value = keep.id; sel.appendChild(ox); found = true;
+  }
+  sel.value = found ? cur : "";
+}
+
+function fillSettle(s){
+  SFIELDS.forEach(function(f){ $("s_" + f.k).value = (s && s[f.k]) || ""; });
+  refreshCaseOptions(s && s.caseId ? { id: s.caseId, label: s.caseLabel } : { id: "" });
+  $("s_case").value = (s && s.caseId) || "";
+  sPayMode = (s && s.payMode) || "";
+  $("s_months").value = (s && s.months) || "";
+  updatePayUI();
+}
+function stopSettleEdit(){
+  editingSettle = null;
+  $("settleTitle").textContent = "إضافة تسوية";
+  $("settleSave").textContent = "حفظ التسوية";
+  $("settleCancel").hidden = true;
+  fillSettle(null);
+}
+$("settleCancel").addEventListener("click", stopSettleEdit);
+
+$("settleForm").addEventListener("submit", async function(ev){
+  ev.preventDefault();
+  var data = {};
+  SFIELDS.forEach(function(f){ data[f.k] = $("s_" + f.k).value.trim(); });
+  var sel = $("s_case");
+  data.caseId = sel.value || "";
+  data.caseLabel = data.caseId ? sel.options[sel.selectedIndex].textContent : "";
+  data.payMode = data.after ? sPayMode : "";
+  data.months = data.payMode === "inst" ? $("s_months").value.trim() : "";
+  if (!data.caseId && !SFIELDS.some(function(f){ return data[f.k] !== ""; })){ toast("اكتب بيانات التسوية أول."); return; }
+  if (mode === "pending"){ toast("لحظة، جاري تجهيز الحفظ. جرب بعد ثواني."); return; }
+  var b = $("settleSave"); b.disabled = true;
+  try {
+    var existing = editingSettle ? settlements.find(function(s){ return s.id === editingSettle; }) : null;
+    var body = Object.assign({}, data, { createdAt: existing ? (existing.createdAt || Date.now()) : Date.now() });
+    if (existing && existing.pay && !data.payMode) body.pay = existing.pay;
+    if (mode === "db"){
+      var ref = editingSettle ? db.collection("settlements").doc(editingSettle) : db.collection("settlements").doc();
+      await ref.set(body);
+    } else {
+      if (existing){ delete existing.pay; Object.assign(existing, body); }
+      else settlements.push(Object.assign({ id: newId("s") }, body));
+      settlements.sort(byCreated); localSave();
+    }
+    stopSettleEdit();
+    toast("تم حفظ التسوية.");
+  } catch(e){ writeError(e); }
+  b.disabled = false;
+  render(true);
+});
+
+function renderSettle(){
+  if (!editingSettle) refreshCaseOptions(null);
+  var list = $("settleList"); list.textContent = "";
+  if (!settleLoaded){ list.appendChild(el("div", "empty", "جاري تحميل التسويات…")); return; }
+  if (!settlements.length){
+    list.appendChild(el("div", "empty", "ما في تسويات للحين. عبّي الخانات فوق واضغط حفظ التسوية."));
+    return;
+  }
+  settlements.forEach(function(s){
+    var card = el("article", "case");
+    var main = el("div", "case-main");
+    var title = el("div", "case-title");
+    title.appendChild(el("strong", null, s.name || "بدون اسم"));
+    main.appendChild(title);
+    if (s.caseLabel) main.appendChild(el("div", "meta", "القضية: " + s.caseLabel));
+    var pt = payText(s);
+    var missing = [];
+    if (!s.base) missing.push(SSHORT.base);
+    if (!s.after) missing.push(SSHORT.after);
+    if (!pt) missing.push(SSHORT.pay);
+    else if (s.payMode === "inst" && !s.months) missing.push("عدد الأشهر");
+    if (missing.length) main.appendChild(el("div", "pending", "ما تحدد للحين: " + missing.join("، ")));
+    card.appendChild(main);
+    var dl = el("dl");
+    [["المبلغ الأساسي", s.base], ["المبلغ بعد التفاوض", s.after], ["طريقة الدفع", pt], ["ملاحظات", s.notes]].forEach(function(p){
+      if (p[0] === "ملاحظات" && !p[1]) return;
+      var box = el("div");
+      box.appendChild(el("dt", null, p[0]));
+      box.appendChild(el("dd", null, p[1] || "ما تحدد للحين"));
+      dl.appendChild(box);
+    });
+    card.appendChild(dl);
+    var act = el("div", "case-actions");
+    if (confirmKey === "settle:" + s.id){
+      act.appendChild(el("span", null, "تحذف هذي التسوية نهائياً؟"));
+      var yes = btn("small danger", "نعم، احذف", async function(){
+        yes.disabled = true;
+        try {
+          if (mode === "db") await db.collection("settlements").doc(s.id).delete();
+          else { settlements = settlements.filter(function(x){ return x.id !== s.id; }); localSave(); }
+          if (editingSettle === s.id) stopSettleEdit();
+          toast("تم حذف التسوية.");
+        } catch(e){ writeError(e); }
+        confirmKey = null; render(true);
+      });
+      act.appendChild(yes);
+      act.appendChild(btn("small", "لا", function(){ confirmKey = null; render(true); }));
+    } else {
+      act.appendChild(btn("small soft", "تعديل", function(){
+        editingSettle = s.id; fillSettle(s);
+        $("settleTitle").textContent = "تعديل تسوية";
+        $("settleSave").textContent = "حفظ التعديل";
+        $("settleCancel").hidden = false;
+        $("settleTitle").scrollIntoView({ block: "start" });
+      }));
+      act.appendChild(btn("small danger", "حذف", function(){ confirmKey = "settle:" + s.id; render(true); }));
+    }
+    card.appendChild(act);
+    list.appendChild(card);
+  });
+}
+
+/* ---------- render ---------- */
+function render(force){
+  $("count").textContent = casesLoaded ? ("عدد القضايا: " + cases.length) : "جاري التحميل…";
+  $("tabCases").setAttribute("aria-selected", tab === "cases" ? "true" : "false");
+  $("tabVisits").setAttribute("aria-selected", tab === "visits" ? "true" : "false");
+  $("viewCases").hidden = tab !== "cases";
+  $("viewVisits").hidden = tab !== "visits";
+  $("tabSettle").setAttribute("aria-selected", tab === "settle" ? "true" : "false");
+  $("viewSettle").hidden = tab !== "settle";
+  renderCases();
+  renderSettle();
+
+  var v = openVisitId ? findVisit(openVisitId) : null;
+  if (openVisitId && !v && visitsLoaded){ openVisitId = null; followId = null; }
+  $("visitsHome").hidden = !!v;
+  $("visitDetail").hidden = !v;
+  if (v){
+    /* a background update must not wipe a follow-up form the person is typing in */
+    if (followId && !force && $("v_prevSession")) return;
+    renderVisitDetail(v);
+  } else {
+    renderVisitList();
+  }
+}
+$("tabCases").addEventListener("click", function(){ tab = "cases"; render(true); });
+$("tabVisits").addEventListener("click", function(){ tab = "visits"; render(true); });
+$("tabSettle").addEventListener("click", function(){ tab = "settle"; render(true); });
+
+/* ---------- PDF ---------- */
+function wrapText(ctx, text, maxW){
+  var out = [];
+  String(text == null ? "" : text).split(/\r?\n/).forEach(function(par){
+    var words = par.split(/\s+/).filter(Boolean);
+    if (!words.length){ out.push(""); return; }
+    var line = "";
+    words.forEach(function(w){
+      var tryLine = line ? line + " " + w : w;
+      if (ctx.measureText(tryLine).width <= maxW){ line = tryLine; return; }
+      if (line){ out.push(line); line = ""; }
+      if (ctx.measureText(w).width <= maxW){ line = w; return; }
+      var piece = "";
+      Array.from(w).forEach(function(ch){
+        if (ctx.measureText(piece + ch).width > maxW && piece){ out.push(piece); piece = ch; }
+        else piece += ch;
+      });
+      line = piece;
+    });
+    if (line) out.push(line);
+  });
+  while (out.length > 1 && out[out.length - 1] === "") out.pop();
+  return out.length ? out : [""];
+}
+
+async function buildPdf(list, title, sideText){
+  var W = 2245, H = 1587, M = 56, PAD = 10, FS = 21, LH = 31, FOOT = 44;
+  var FAMILY = '"IBM Plex Sans Arabic","Noto Sans Arabic",Tahoma,"Segoe UI",sans-serif';
+  var F_REG = "400 " + FS + "px " + FAMILY;
+  var F_BOLD = "700 " + FS + "px " + FAMILY;
+  try {
+    await Promise.all([
+      document.fonts.load('400 21px "IBM Plex Sans Arabic"', "قضية"),
+      document.fonts.load('700 21px "IBM Plex Sans Arabic"', "قضية")
+    ]);
+  } catch(e){}
+
+  var cv = document.createElement("canvas"); cv.width = W; cv.height = H;
+  var ctx = cv.getContext("2d");
+  ctx.direction = "rtl"; ctx.textAlign = "right"; ctx.textBaseline = "top";
+
+  var cols = [{ l: "م", w: 0.38, get: function(c, i){ return String(i + 1); } }]
+    .concat(FIELDS.map(function(f){ return { l: f.l, w: f.w, get: function(c){ return c[f.k] || ""; } }; }));
+  var tableW = W - 2 * M;
+  var totalW = cols.reduce(function(s, c){ return s + c.w; }, 0);
+  cols.forEach(function(c){ c.px = tableW * c.w / totalW; });
+
+  var tableTop = M + 78;
+  ctx.font = F_BOLD;
+  var headLines = cols.map(function(c){ return wrapText(ctx, c.l, c.px - 2 * PAD); });
+  var headH = Math.max.apply(null, headLines.map(function(l){ return l.length; })) * LH + 2 * PAD;
+  var bodyTop = tableTop + headH;
+  var bodyBottom = H - M - FOOT;
+  var maxLines = Math.max(1, Math.floor((bodyBottom - bodyTop - 2 * PAD) / LH));
+
+  ctx.font = F_REG;
+  var rows = list.map(function(c, i){
+    var cells = cols.map(function(col){
+      var lines = wrapText(ctx, col.get(c, i), col.px - 2 * PAD);
+      if (lines.length > maxLines){ lines = lines.slice(0, maxLines); lines[maxLines - 1] += " …"; }
+      return lines;
+    });
+    var n = Math.max.apply(null, cells.map(function(l){ return l.length; }));
+    return { cells: cells, h: n * LH + 2 * PAD };
+  });
+
+  var pages = [[]], y = bodyTop;
+  rows.forEach(function(r){
+    if (y + r.h > bodyBottom && pages[pages.length - 1].length){ pages.push([]); y = bodyTop; }
+    pages[pages.length - 1].push(r); y += r.h;
+  });
+
+  var INK = "#1d3442", HEAD = "#cfe9f8", GRID = "#9fc3d8", ALT = "#f3f9fd";
+  var doc = new window.jspdf.jsPDF({ orientation: "landscape", unit: "mm", format: "a4", compress: true });
+
+  function drawCells(lines, yTop){
+    var x = W - M;
+    ctx.fillStyle = INK;
+    cols.forEach(function(col, ci){
+      lines[ci].forEach(function(t, li){ ctx.fillText(t, x - PAD, yTop + PAD + li * LH + 3); });
+      x -= col.px;
+    });
+  }
+  function drawGrid(yTop, h){
+    ctx.strokeStyle = GRID; ctx.lineWidth = 1.5;
+    ctx.strokeRect(M, yTop, tableW, h);
+    var x = W - M;
+    cols.forEach(function(col, ci){
+      x -= col.px;
+      if (ci < cols.length - 1){ ctx.beginPath(); ctx.moveTo(x, yTop); ctx.lineTo(x, yTop + h); ctx.stroke(); }
+    });
+  }
+
+  pages.forEach(function(pageRows, pi){
+    ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, W, H);
+
+    ctx.fillStyle = INK; ctx.textAlign = "right";
+    ctx.font = "700 36px " + FAMILY;
+    ctx.fillText(title || "جدول متابعة القضايا", W - M, M);
+    ctx.font = "400 22px " + FAMILY;
+    ctx.textAlign = "left";
+    ctx.fillText(sideText, M, M + 12);
+    ctx.textAlign = "right";
+
+    ctx.fillStyle = HEAD; ctx.fillRect(M, tableTop, tableW, headH);
+    ctx.font = F_BOLD; drawCells(headLines, tableTop);
+    drawGrid(tableTop, headH);
+
+    var yy = bodyTop;
+    ctx.font = F_REG;
+    pageRows.forEach(function(r, ri){
+      if (ri % 2 === 1){ ctx.fillStyle = ALT; ctx.fillRect(M, yy, tableW, r.h); }
+      drawCells(r.cells, yy);
+      drawGrid(yy, r.h);
+      yy += r.h;
+    });
+
+    ctx.font = "400 20px " + FAMILY; ctx.fillStyle = "#5f7d8d"; ctx.textAlign = "center";
+    ctx.fillText("صفحة " + (pi + 1) + " من " + pages.length, W / 2, H - M - 22);
+    ctx.textAlign = "right";
+
+    if (pi > 0) doc.addPage("a4", "landscape");
+    doc.addImage(cv.toDataURL("image/jpeg", 0.92), "JPEG", 0, 0, 297, 210);
+  });
+
+  return doc.output("arraybuffer");
+}
+
+$("exportBtn").addEventListener("click", async function(){
+  var v = openVisitId ? findVisit(openVisitId) : null;
+  if (!v) return;
+  var rows = visitRows(v);
+  if (!rows.length){ toast("ما في قضايا في هذي الزيارة."); return; }
+  if (!window.jspdf){ toast("ما تحمّلت أداة الـ PDF. تأكد من الاتصال وافتح الصفحة مرة ثانية."); return; }
+  if (!downloads && !standalone){ toast("إصدار الملفات مو متاح في هذا العرض. افتح الصفحة من رابطها في Claude وجرب."); return; }
+  var b = $("exportBtn"); b.disabled = true; b.textContent = "جاري تجهيز الجدول…";
+  try {
+    var side = "عدد القضايا: " + rows.length + "     الزيارة: " + (v.name || "");
+    var data = await buildPdf(rows, $("pdfTitle").value.trim(), side);
+    if (downloads) await downloads.save({ filename: "جدول-متابعة-القضايا.pdf", data: data });
+    else {
+      var url = URL.createObjectURL(new Blob([data], { type: "application/pdf" }));
+      var a = document.createElement("a"); a.href = url; a.download = "جدول-متابعة-القضايا.pdf";
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 60000);
+    }
+    toast("تم إصدار الجدول.");
+  } catch(e){
+    var code = e && e.code;
+    if (code === "declined") toast("تم إلغاء حفظ الملف.");
+    else if (code === "rate_limited") toast("في طلب حفظ مفتوح. خلصه أول وبعدين جرب.");
+    else toast("ما قدرنا نصدر الجدول. جرب مرة ثانية.");
+  }
+  b.disabled = false; b.textContent = "إصدار جدول المحامي PDF";
+});
+
+/* ---------- start ---------- */
+function startLocal(){
+  mode = "local"; localLoad(); cases.sort(byCreated); visits.sort(byCreated); settlements.sort(byCreated);
+  casesLoaded = true; visitsLoaded = true; settleLoaded = true;
+  $("localBanner").hidden = false;
+  render(true);
+}
+
+async function init(){
+  render(true);
+  var hasClaude = !!(window.claude && typeof window.claude.use === "function");
+  if (!hasClaude){ standalone = true; startLocal(); return; }
+
+  window.claude.use("downloads").then(function(d){
+    downloads = d || null;
+    if (!downloads) $("exportNote").textContent = "إصدار الملفات مو متاح في هذا العرض.";
+  }, function(){ downloads = null; });
+
+  try { db = await window.claude.use("db"); } catch(e){ db = null; }
+  if (!db){ startLocal(); return; }
+
+  mode = "db";
+  var fresh = { cases: false, visits: false, settle: false };
+  var timer = setTimeout(function(){
+    $("staleBanner").hidden = false;
+    casesLoaded = true; visitsLoaded = true; settleLoaded = true; render(false);
+  }, 10000);
+  function settled(which, snap){
+    if (!snap.metadata || !snap.metadata.fromCache) fresh[which] = true;
+    if (fresh.cases && fresh.visits && fresh.settle){ clearTimeout(timer); $("staleBanner").hidden = true; }
+  }
+  function failed(){
+    clearTimeout(timer); casesLoaded = true; visitsLoaded = true; settleLoaded = true;
+    $("staleBanner").hidden = false; render(false);
+  }
+  db.collection("cases").onSnapshot(function(snap){
+    cases = snap.docs.map(function(d){ return Object.assign({ id: d.id }, d.data()); });
+    cases.sort(byCreated); casesLoaded = true; settled("cases", snap); render(false);
+  }, failed);
+  db.collection("visits").onSnapshot(function(snap){
+    visits = snap.docs.map(function(d){ return Object.assign({ id: d.id }, d.data()); });
+    visits.sort(byCreated); visitsLoaded = true; settled("visits", snap); render(false);
+  }, failed);
+  db.collection("settlements").onSnapshot(function(snap){
+    settlements = snap.docs.map(function(d){ return Object.assign({ id: d.id }, d.data()); });
+    settlements.sort(byCreated); settleLoaded = true; settled("settle", snap); render(false);
+  }, failed);
+}
+init();
+})();
+</script>
+</body>
+</html>
